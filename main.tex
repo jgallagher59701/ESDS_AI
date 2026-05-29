@@ -1,3 +1,4 @@
+
 \documentclass[11pt]{article}
 \usepackage{authblk}                % jhrg 5/27/26
 \usepackage[margin=1in]{geometry}   % See geometry.pdf to learn the layout options. There are lots.
@@ -28,7 +29,7 @@
 % \usepackage[printonlyused]{acronym} 
 \usepackage[nolist]{acronym}        % They are defined in the text. jhrg 5/28/26
 \input{Abbreviations}
-\usepackage{fontspec}
+\usepackage{fontspec}               % Use the XeLaTeX compiler in Overleaf for 'fontspec' jhrg 5/29/26
 \setmainfont{Arial}
 \usepackage[dvipsnames]{xcolor}
 \definecolor{mygreen}{RGB}{0, 153, 0}
@@ -39,14 +40,14 @@
 
 \usepackage{listings}
 
-\title{AI-driven Metadata Curator and Agentic AI Enabler via OPeNDAP to Meet Challenges in the Earth Science Data System}
+% \title{AI-driven Metadata Curator and Agentic AI Enabler via OPeNDAP to Meet Challenges in the Earth Science Data System}
 
-\author[1]{James Gallagher}
-\author[2]{Edward Armstrong}
+%\author[1]{James Gallagher}
+%\author[2]{Edward Armstrong}
 
-\affil[1]{OPeNDAP, Butte, MT}
-\affil[2]{NASA JPL PODAAC, Pasadena, CA}
-\date{\today}
+% \affil[1]{OPeNDAP, Butte, MT}
+% \affil[2]{NASA JPL PODAAC, Pasadena, CA}
+% \date{\today}
 
 \begin{document}
 
@@ -123,7 +124,7 @@ We have already exercised this workflow end-to-end against a live Hyrax server r
 \begin{lstlisting}[caption={Proof-of-concept example run against Hyrax at the University of Rhode Island and recast for the NASA EDC}, label={listing-1}]
 > **Worked example: from per-granule verification to a retrieval recipe**
 >
-> - **Value-range vs. declared units.** A small DAP4 hyperslab request confirms that a variable declared `units="kelvin"` actually spans ~270–310, not ~−3–35. In the proof-of-concept this same check caught two genuinely mislabeled variables (a wind speed declared `"mm"`, a pixel count declared `"C"`).
+> - **Value-range vs. declared units.** A small DAP4 hyperslab request confirms that a variable declared `units="kelvin"` actually spans ~270-310, not ~-3-35. In the proof-of-concept this same check caught two genuinely mislabeled variables (a wind speed declared `"mm"`, a pixel count declared `""``).
 > - **Cross-granule accumulation.** Per-granule spatial/temporal bounds, fill-value usage, and valid ranges are aggregated into a single collection-level envelope, and divergence between granules is flagged.
 > - **Cross-checks against CMR.** Accumulated bounds are compared with the collection's CMR record; disagreements are surfaced for an expert rather than silently overwritten.
 > - **Retrieval-relevant structure.** DMR++ chunk sizes and layout are read directly, yielding concrete subsetting guidance (chunk-aligned request shapes, byte ranges, and dataset-specific pitfalls).
