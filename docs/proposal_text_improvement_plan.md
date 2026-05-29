@@ -61,8 +61,8 @@ Current fit:
 
 Plan:
 
-- Add `Requested Funding` once the amount is known.
-- Consider shortening the title so reviewers can quickly see the core value: AI-assisted metadata curation and agent-ready OPeNDAP access.
+- Add `Requested Funding` once the amount is known. DONE 5/29/2026, but a placeholder value, so revisit if we can justify a lower cost. My time estimates are very rough.
+- Consider shortening the title so reviewers can quickly see the core value: AI-assisted metadata curation and agent-ready OPeNDAP access. DONE 5/29/2026
 - If appropriate, make the PO.DAAC or ESDIS connection more visible in the cover metadata or Team section so eligibility is unambiguous.
 - Keep the pillar list focused. Infrastructure and Access are clearly supported; Analysis is plausible, but should be justified explicitly if retained.
 
