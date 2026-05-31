@@ -43,8 +43,11 @@ Reasoning summary:
 ## Highest-Priority Improvements
 
 1. Fill `Validation and Path to Operations`; this is both empty and directly scored.
-2. Fill `Budget Summary` and add `Requested Funding` to the title block.
-3. Rewrite the `Proposed Approach` lead-in to remove internal notes and explicitly name the AI architecture, tools, models, and validation controls.
+2. Fill `Budget Summary` and add `Requested Funding` to the title block. WIP
+   jhrg 5/31/26
+3. Rewrite the `Proposed Approach` lead-in to remove internal notes and
+   explicitly name the AI architecture, tools, models, and validation controls.
+   DONE jhrg 5/31/26
 4. Tighten `Overview and Background` around a specific ESDS operational problem and why AI is needed.
 5. Rework `Deliverables` so it includes the call's mandatory final report, open-source artifact, and presentation/demo.
 6. Add evidence or citations for claims marked or implied as unsupported, especially proof-of-concept claims.
