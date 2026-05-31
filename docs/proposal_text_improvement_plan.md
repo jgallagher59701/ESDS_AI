@@ -42,7 +42,8 @@ Reasoning summary:
 
 ## Highest-Priority Improvements
 
-1. Fill `Validation and Path to Operations`; this is both empty and directly scored.
+1. Fill `Validation and Path to Operations`; this is both empty and directly
+   scored. DONE, but needs an edit. jhrg 5/31/26
 2. Fill `Budget Summary` and add `Requested Funding` to the title block. WIP
    jhrg 5/31/26
 3. Rewrite the `Proposed Approach` lead-in to remove internal notes and
