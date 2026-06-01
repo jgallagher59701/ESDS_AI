@@ -1,0 +1,1 @@
+To get pdftotext, Get python 3 and then,  `brew install pkg-config poppler` and then `pip install pdftotext`
