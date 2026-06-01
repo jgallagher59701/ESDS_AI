@@ -95,9 +95,12 @@ Critically, the agent distinguished \emph{stated}, \emph{inferred}, and \emph{no
 
 \section{Proposed Approach}
 \textcolor{red}{\textit{Describe your AI-powered solution. What will you build or enhance? What AI tools, models, or frameworks will you use and why? How does this connect to an existing project or operational system? (Suggested: 1–1.5 pages)}}
-\textcolor{red}{\textit{Check this since it was rewritten by Codex}}
 
-This project extends Hyrax in the \ac{EDC} with a three-part \ac{AI}-assisted workflow that improves discovery, metadata quality, and autonomous data access without replacing existing operational services. We will use an agentic workflow architecture, implemented with interchangeable large language models and tool-based orchestration such as LangChain where appropriate, to coordinate deterministic calls to \ac{CMR}, Hyrax, \ac{OPeNDAP}/\ac{DAP4}, \ac{PyDAP}, Xarray, and \ac{DMR++} inspection utilities. In this design, the language model is used to guide inspection, compare evidence, and draft collection-level guidance, while factual claims are grounded in direct service responses and programmatic checks of units, coordinates, ranges, fill values, chunk structure, and cross-granule consistency. The three subsections below describe how this architecture first makes collections crawlable by generic \ac{AI} tools, then produces per-collection `usage.md` guidance from validated evidence, and finally embeds approved guidance directly in \ac{DAP4} responses so autonomous clients can retrieve data correctly and efficiently at the point of use.
+This project extends Hyrax in the \ac{EDC} with a three-part \ac{AI}-assisted workflow that improves discovery, metadata quality, and autonomous data access without replacing existing operational services. We will use an agentic workflow architecture, implemented with interchangeable large language models and tool-based orchestration such as LangChain or LangGraph where appropriate, to coordinate deterministic calls to \ac{CMR}, Hyrax, \ac{OPeNDAP}/\ac{DAP4}, \ac{PyDAP}, Xarray, and \ac{DMR++} inspection utilities. In this design, the language model is used to guide inspection, compare evidence, and draft collection-level guidance, while factual claims are grounded in direct service responses and programmatic checks of units, coordinates, ranges, fill values, chunk structure, and cross-granule consistency. The three subsections below describe how this architecture first makes collections crawlable by generic \ac{AI} tools, then produces per-collection `usage.md` guidance from validated evidence, and finally embeds approved guidance directly in \ac{DAP4} responses so autonomous clients can retrieve data correctly and efficiently at the point of use.
+
+%\ref{section-2.1} (crawlable interfaces) is what lets \ac{AI} tools *discover and query* the data at all.
+%\ref{section-2.2} *produces* the per-collection knowledge (the markdown files with usage metadata, optimal chunk-retrieval strategies, dataset-specific quirks).
+%\ref{section-2.3} is about *where that knowledge lives and how an agent gets it at the moment it acts*. The point is to embed the guidance directly into the \ac{DAP4} responses the agent is already pulling, so the agent does not have to go find the recipe separately — the operational instructions travel with the data. The payoff is stated at the end of the section: "reducing retrieval inefficiencies and failed access patterns."
 
 \subsection{AI-discoverable and crawlable service interfaces}
 \label{section-2.1}
@@ -178,106 +181,41 @@ We will produce three deliverables:
 \section{Validations and Path to Operations}
 \textcolor{red}{\textit{How will you know it works? Who will test or validate the output? What would need to happen for this to move from prototype to operational use? (Suggested: 0.5 pages)}}
 
-\textcolor{red}{\textit{Check this since it was rewritten by Codex}}
-
-Our validation approach follows from the three deliverables. For Part 1, we will validate the Virtual Directory Interface by confirming that generic \ac{AI} clients can discover and traverse representative \ac{OPeNDAP}-enabled collections in \ac{ESDIS} without collection-specific adaptation. Success will be measured by whether the interface exposes the expected collection structure and whether autonomous crawlers can reach the same collection endpoints that expert users reach.
-
-For Part 2, we will validate the agentic metadata-generation workflow by comparing the generated markdown documents against authoritative sources, including \ac{CMR} collection and granule metadata, and the results of direct \ac{DAP4} inspection. The system will be judged on whether it produces complete, evidence-linked metadata summaries, correctly flags uncertainty or disagreement, and avoids asserting facts that are not supported by the data or upstream metadata. Members of the project team, together with collaborators familiar with the selected \ac{ESDIS} collections, will review a representative sample of these generated documents to confirm that they are accurate and useful for downstream retrieval tasks.
-
-For Part 3, we will validate operational usefulness by testing whether an autonomous client can use the embedded guidance to make correct data access and subsetting requests on the first attempt more often than a baseline workflow that relies only on conventional metadata records. We will evaluate whether the resulting requests are retrieval-correct, reduce avoidable iteration, and capture dataset-specific constraints that are often learned today only through expert experience.
-
-The path to operations is intentionally incremental because this project extends existing \ac{OPeNDAP} and Hyrax capabilities rather than introducing a new service that must be adopted independently. The Virtual Directory Interface can be incorporated into Hyrax deployments using the same software distribution mechanisms already used for \ac{OPeNDAP} server updates. The metadata-generation software will be maintained in an open repository so that it can be inspected by \ac{NASA} partners, and improved through operational experience. The generated markdown guidance can be reviewed by domain experts before publication and then served through existing \ac{DAP4} responses, allowing adoption first in pilot collections and then, if successful, across additional \ac{ESDIS} holdings.
-
 \section{Timeline}
 \textcolor{red}{\textit{Provide a month-by-month, milestone-based schedule for the project duration. Include key decision points and the final deliverable date.}}
 
 \subsection*{Part 1: AI-discoverable and crawlable service interfaces} 
 \begin{description}
-    \item [Month 1] Deploy and test the Hyrax Virtual Directory Interface candidate and define target validation collections.
-    \item [Month 2] Choose the Virtual Directory Interface path with \ac{ESDIS} guidance and verify crawlability and collection coverage. Decision point: confirm the interface approach for the rest of the project.
+    \item [Month 1] Deploy and test the Hyrax Virtual Directory Interface.
+    \item [Month 2] Test this and verify that it surfaces all \ac{OPeNDAP}-enabled \ac{ESDIS} collections. 
 \end{description}
 
 \subsection*{Part 2: AI-assisted metadata introspection and validation} 
 \begin{description}
-    \item [Month 3] Design the agent workflow, evidence schema, and `usage.md` schema.
-    \item [Month 4] Implement initial \ac{CMR}, \ac{OPeNDAP}/\ac{DAP4}, \ac{PyDAP}/Xarray, and \ac{DMR++} tool calls.
-    \item [Month 5] Generate the first `usage.md` artifacts for representative collections.
-    \item [Month 6] Run expert review and revise validators based on false positives and false negatives. Decision point: confirm the metadata-generation approach before integration work.
+    \item [Month 3] 
+    \item [Month 4] 
+    \item [Month 5] 
+    \item [Month 6]
     \end{description}
 
 \subsection*{Part 3: Machine-actionable guidance for autonomous data retrieval workflows} 
 \begin{description}
-    \item [Month 7] Prototype \ac{DAP4} embedding or in-band guidance exposure in Hyrax.
-    \item [Month 8] Validate autonomous retrieval workflows and the operational review path. Decision point: confirm readiness for final packaging and delivery.
-    \item [Month 9] Package the open-source artifacts, final report, and presentation/demo, and present the working prototype as the final deliverable. 
+    \item [Month 7] 
+    \item [Month 8] 
+    \item [Month 9] Present working prototype. 
 \end{description}
 
 \section{Team}
 \textcolor{red}{\textit{List the people who will do the work, their roles, and the estimated effort in person-months. Include any key collaborators or external dependencies.}}
 
-\begin{center}
-\begin{tabular}{|l|l|p{3.5in}|}
-\hline
-Name & Effort & Role / Contribution \\
-\hline
-James Gallagher & 2 months & project lead; agentic \ac{AI} development; software engineering \\
-\hline
-Hannah Robertson & 3 months & agentic \ac{AI} development; software engineering \\
-\hline
-Ed Armstrong & 1 month & domain expert and testing; key collaborator at \ac{PO.DAAC} \\
-\hline
-Peter Cornillon & unfunded & domain expert and testing; collaborator at University of Rhode Island \\
-\hline
-Miguel \`{A}ngel Jim\`{e}nez & unfunded & domain expert and testing; collaborator at \ac{OPeNDAP} \\
-\hline
-\end{tabular}
-\end{center}
+\begin{flushleft}
+\noindent James Gallagher; Project lead, agentic \ac{AI} development, software engineering; 2 months\\
+Hannah Robertson; agentic \ac{AI} development, software engineering; 3 months\\
+Ed Armstrong; Domain expert and testing, a key collaborator at \ac{PO.DAAC} where \ac{OPeNDAP} has long had a presence; 1 month\\
+\end{flushleft}
 
 \section{Budget Summary}
 \textcolor{red}{\textit{Provide a high-level budget breakdown: personnel, compute, other direct costs. One page or less.}}
-
-\begin{center}
-\begin{tabular}{|l|l|l|l|l|}
-\hline
-Who & hourly rate & hours/month & months & cost \\
-\hline
-James Gallagher & \$220.15 & 167 & 2 & \$73,530 \\
-\hline
-Hannah Robertson & \$199.07 & 167 & 3 & \$99,734 \\
-\hline
-Ed Armstrong & \$220.15 & 167 & 1 & \$36,765 \\
-\hline
- & monthly cost &  &  &  \\
-\hline
-Compute & \$2,500.00 &  & 4 & \$10,000 \\
-\hline
-Tooling &  &  &  &  \\
-\hline
- &  &  &  &  \\
-\hline
-Total &  &  &  & \$220,029 \\
-\hline
-\end{tabular}
-\end{center}
-
-\noindent \textbf{Indirect costs} There are no indirect costs added to the budget since payment is
-through the existing \ac{ESDIS} contract (EED3 for \ac{OPeNDAP}).\\
-\textbf{Hardware procurement} No hardware procurement is requested; existing infrastructure will be utilized.\\
-\textbf{Travel} Travel is excluded from the budget.\\
-\textbf{Other direct costs} Other direct costs include cloud compute resources
-for AI model training and inference, estimated at \$10,000 over the project
-duration. This estimate is based on OpenAI model costs, LanChain usage and AWS
-computer for testing.\\
-\textbf{Personnel} Personnel costs are based on the estimated hours and hourly
-rates for the project team members, as detailed in the budget table above. The
-total personnel cost is \$209,029. {\em James Gallagher} will lead the project
-Hyrax/\ac{OPeNDAP} architecture, Virtual Directory interface, agentic AI development
-and software engineering. {\em Hannah Robertson} contribute to agentic AI
-development and software engineering. {\em Ed Armstrong} will provide
-\ac{DAAC}/domain validation, \ac{PO.DAAC} operational feedback, representative
-collection selection and testing support, while {\em Peter Cornillon} and {\em
-Miguel Ángel Jiménez}  will serve as unfunded collaborators providing additional
-collection selection, domain expertise and testing support.
 
 \bibliography{references}
 \input{acronyms.tex}
