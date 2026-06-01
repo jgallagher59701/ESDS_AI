@@ -233,7 +233,7 @@ Plan:
 - Include open science explicitly: code, docs, generated sample artifacts, and validation results should be public unless restricted by NASA policy.
 
 ### Timeline
-
+DONE jhrg 5/31/26
 Current fit:
 
 - Part 1 has initial months.
@@ -256,7 +256,6 @@ Suggested plan:
   - Month 9: package open-source artifacts, final report, and presentation/demo.
 - Add decision points at Month 2, Month 6, and Month 8.
 - Include a final deliverable date relative to project start once the start date is selected.
-
 ### Team
 
 Current fit:
