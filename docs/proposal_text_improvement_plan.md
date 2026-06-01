@@ -275,7 +275,7 @@ Plan:
 - If institutional authorization or funded team lead status needs to be explicit for eligibility, add it here or in the metadata.
 
 ### Budget Summary
-
+DONE. jhrg 5/31/26
 Current fit:
 
 - Empty.
