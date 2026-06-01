@@ -83,10 +83,6 @@ The proposed work advances the \ac{ESDS} \ac{AI} Strategy primarily within the I
 
 This project extends Hyrax in the \ac{EDC} with a three-part \ac{AI}-assisted workflow that improves discovery, metadata quality, and autonomous data access without replacing existing operational services. We will use an agentic workflow architecture, implemented with interchangeable large language models and tool-based orchestration such as LangChain where appropriate, to coordinate deterministic calls to \ac{CMR}, Hyrax, \ac{OPeNDAP}/\ac{DAP4}, \ac{PyDAP}, Xarray, and \ac{DMR++} inspection utilities. In this design, the language model is used to guide inspection, compare evidence, and draft collection-level guidance, while factual claims are grounded in direct service responses and programmatic checks of units, coordinates, ranges, fill values, chunk structure, and cross-granule consistency. The three subsections below describe how this architecture first makes collections crawlable by generic \ac{AI} tools, then produces per-collection `usage.md` guidance from validated evidence, and finally embeds approved guidance directly in \ac{DAP4} responses so autonomous clients can retrieve data correctly and efficiently at the point of use.
 
-%\ref{section-2.1} (crawlable interfaces) is what lets \ac{AI} tools *discover and query* the data at all.
-%\ref{section-2.2} *produces* the per-collection knowledge (the markdown files with usage metadata, optimal chunk-retrieval strategies, dataset-specific quirks).
-%\ref{section-2.3} is about *where that knowledge lives and how an agent gets it at the moment it acts*. The point is to embed the guidance directly into the \ac{DAP4} responses the agent is already pulling, so the agent does not have to go find the recipe separately — the operational instructions travel with the data. The payoff is stated at the end of the section: "reducing retrieval inefficiencies and failed access patterns."
-
 \subsection{AI-discoverable and crawlable service interfaces}
 \label{section-2.1}
 
@@ -165,15 +161,16 @@ We will produce three deliverables:
 
 \section{Validations and Path to Operations}
 \textcolor{red}{\textit{How will you know it works? Who will test or validate the output? What would need to happen for this to move from prototype to operational use? (Suggested: 0.5 pages)}}
+
 \textcolor{red}{\textit{Check this since it was rewritten by Codex}}
 
-Our validation approach follows directly from the three deliverables. For Part 1, we will validate the Virtual Directory Interface by confirming that generic \ac{AI} clients can discover and traverse representative \ac{OPeNDAP}-enabled collections in \ac{ESDIS} without collection-specific adaptation. Success will be measured by whether the interface exposes the expected collection structure and whether autonomous crawlers can reach the same collection endpoints that expert users reach manually.
+Our validation approach follows from the three deliverables. For Part 1, we will validate the Virtual Directory Interface by confirming that generic \ac{AI} clients can discover and traverse representative \ac{OPeNDAP}-enabled collections in \ac{ESDIS} without collection-specific adaptation. Success will be measured by whether the interface exposes the expected collection structure and whether autonomous crawlers can reach the same collection endpoints that expert users reach.
 
-For Part 2, we will validate the agentic metadata-generation workflow by comparing the generated markdown documents against authoritative sources already used by the Earthdata community, including collection metadata, \ac{CF} metadata, and the results of direct \ac{DAP4} inspection. The system will be judged on whether it produces complete, evidence-linked metadata summaries, correctly flags uncertainty or disagreement, and avoids asserting facts that are not supported by the data or upstream metadata. Members of the project team, together with collaborators familiar with the selected \ac{ESDIS} collections, will review a representative sample of these generated documents to confirm that they are accurate and useful for downstream retrieval tasks.
+For Part 2, we will validate the agentic metadata-generation workflow by comparing the generated markdown documents against authoritative sources, including \ac{CMR} collection and granule metadata, and the results of direct \ac{DAP4} inspection. The system will be judged on whether it produces complete, evidence-linked metadata summaries, correctly flags uncertainty or disagreement, and avoids asserting facts that are not supported by the data or upstream metadata. Members of the project team, together with collaborators familiar with the selected \ac{ESDIS} collections, will review a representative sample of these generated documents to confirm that they are accurate and useful for downstream retrieval tasks.
 
 For Part 3, we will validate operational usefulness by testing whether an autonomous client can use the embedded guidance to make correct data access and subsetting requests on the first attempt more often than a baseline workflow that relies only on conventional metadata records. We will evaluate whether the resulting requests are retrieval-correct, reduce avoidable iteration, and capture dataset-specific constraints that are often learned today only through expert experience.
 
-The path to operations is intentionally incremental because this project extends existing \ac{OPeNDAP} and Hyrax capabilities rather than introducing a separate service that must be adopted independently. The Virtual Directory Interface can be incorporated into Hyrax deployments using the same software distribution mechanisms already used for \ac{OPeNDAP} server updates. The metadata-generation software will be maintained in an open repository so that it can be rerun as collections evolve, inspected by \ac{NASA} partners, and improved through operational experience. The generated markdown guidance can be reviewed by domain experts before publication and then served through existing \ac{DAP4} responses, allowing adoption first in pilot collections and then, if successful, across additional \ac{ESDIS} holdings. This staged deployment provides a practical route from prototype to operational use while keeping validation, expert review, and software maintenance aligned with current Earthdata practices.
+The path to operations is intentionally incremental because this project extends existing \ac{OPeNDAP} and Hyrax capabilities rather than introducing a new service that must be adopted independently. The Virtual Directory Interface can be incorporated into Hyrax deployments using the same software distribution mechanisms already used for \ac{OPeNDAP} server updates. The metadata-generation software will be maintained in an open repository so that it can be inspected by \ac{NASA} partners, and improved through operational experience. The generated markdown guidance can be reviewed by domain experts before publication and then served through existing \ac{DAP4} responses, allowing adoption first in pilot collections and then, if successful, across additional \ac{ESDIS} holdings.
 
 \section{Timeline}
 \textcolor{red}{\textit{Provide a month-by-month, milestone-based schedule for the project duration. Include key decision points and the final deliverable date.}}
@@ -203,9 +200,11 @@ The path to operations is intentionally incremental because this project extends
 \textcolor{red}{\textit{List the people who will do the work, their roles, and the estimated effort in person-months. Include any key collaborators or external dependencies.}}
 
 \begin{flushleft}
-\noindent James Gallagher; Project lead, agentic \ac{AI} development, software engineering; 2 months\\
-Hannah Robertson; agentic \ac{AI} development, software engineering; 3 months\\
-Ed Armstrong; Domain expert and testing, a key collaborator at \ac{PO.DAAC} where \ac{OPeNDAP} has long had a presence; 1 month\\
+\noindent \textbf{James Gallagher}: 2 months; project lead, agentic \ac{AI} development; software engineering\\
+\textbf{Hannah Robertson}: 3 months; agentic \ac{AI} development, software engineering\\
+\textbf{Ed Armstrong}: 1 month; domain expert and testing, a key collaborator at \ac{PO.DAAC}\\
+\textbf{Peter Cornillon}: unfunded; domain expert and testing; a collaborator at University of Rhode Island\\
+\textbf{Miguel \`{A}ngel Jim\`{e}nez}: unfunded; domain expert and testing; a collaborator at \ac{OPeNDAP}
 \end{flushleft}
 
 \section{Budget Summary}
