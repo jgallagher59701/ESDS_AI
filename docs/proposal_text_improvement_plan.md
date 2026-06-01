@@ -257,7 +257,7 @@ Suggested plan:
 - Add decision points at Month 2, Month 6, and Month 8.
 - Include a final deliverable date relative to project start once the start date is selected.
 ### Team
-
+DONE. jhrg 5/31/26
 Current fit:
 
 - Lists people, roles, and person-months.
