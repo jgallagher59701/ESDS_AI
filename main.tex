@@ -70,39 +70,136 @@
 
 \section{Overview and Background}
 
-NASA ESDS manages nearly 180 petabytes of Earth science data today, with holdings expected to exceed 600 petabytes by the early 2030s. At that scale, a practical operational problem becomes harder to manage by manual review alone: metadata records, access guidance, and cloud-optimization artifacts can drift from the scientific data products they describe. When this happens, users and automated clients encounter incomplete dataset characterization, stale or inconsistent \ac{DMR++} inventories, ambiguous units and coordinate conventions, and brittle subsetting behavior. The result is more failed discovery, more failed first attempts at access, and more staff time spent diagnosing collection-specific issues before researchers can begin useful scientific work.
+NASA \ac{ESDS} manages nearly 180 petabytes of Earth science data today, with
+holdings expected to exceed 600 petabytes by the early 2030s. At that scale, a
+practical operational problem becomes harder to manage by manual review alone:
+metadata records, access guidance, and cloud-optimization artifacts can drift
+from the scientific data products they describe. When this happens, users and
+automated clients encounter incomplete dataset characterization, stale or
+inconsistent \ac{DMR++} inventories, ambiguous units and coordinate conventions,
+and brittle subsetting behavior. The result is more failed discovery, more
+failed first attempts at access, and more staff time spent diagnosing
+collection-specific issues before researchers can begin useful scientific work.
 
-The current ESDS environment already contains many of the pieces needed to address this problem. \ac{CMR} provides authoritative collection and granule metadata; Hyrax and \ac{OPeNDAP}/\ac{DAP4} provide remote, subset-oriented access to the data themselves; \ac{DMR++} inventories expose cloud retrieval structure; and DAAC and \ac{EDC} teams perform expert review and operational curation. What remains difficult is applying these capabilities consistently across large and growing archives, especially when the information needed to judge a collection is distributed across \ac{CMR} records, service responses, structural metadata, and the values inside representative granules.
+The current ESDS environment already contains many of the pieces needed to
+address this problem. \ac{CMR} provides authoritative collection and granule
+metadata; Hyrax and \ac{OPeNDAP}/\ac{DAP4} provide remote, subset-oriented
+access to the data themselves; \ac{DMR++} inventories expose cloud retrieval
+structure; and DAAC and \ac{EDC} teams perform expert review and operational
+curation. What remains difficult is applying these capabilities consistently
+across large and growing archives, especially when the information needed to
+judge a collection is distributed across \ac{CMR} records, service responses,
+structural metadata, and the values inside representative granules.
 
-Several approaches already point toward a solution but do not, by themselves, close the gap. Existing Hyrax directory views and the \ac{CMR} virtual directory work make collections easier to browse and crawl. Manual metadata review can identify authoritative corrections, but it does not scale to every collection and every access pattern. Our proof-of-concept work at the \ac{URI}, summarized below, showed that an \ac{AI} agent grounded in \ac{OPeNDAP} protocol knowledge and direct data probes can detect wrong or missing semantic metadata while distinguishing stated facts from defensible inferences and unsupported guesses.
+Several approaches already point toward a solution but do not, by themselves,
+close the gap. Existing Hyrax directory views and the \ac{CMR} virtual directory
+work make collections easier to browse and crawl. Manual metadata review can
+identify authoritative corrections, but it does not scale to every collection
+and every access pattern. Our proof-of-concept work at the \ac{URI}, summarized
+below, showed that an \ac{AI} agent grounded in \ac{OPeNDAP} protocol knowledge
+and direct data probes can detect wrong or missing semantic metadata while
+distinguishing stated facts from defensible inferences and unsupported guesses.
 
-\ac{AI} is the right tool for this project because the task is not a single deterministic check; it is an evidence-gathering workflow across many heterogeneous collections. An agent can traverse collection structure, inspect \ac{CMR} and \ac{DAP4} metadata, sample representative granules with \ac{PyDAP} or Xarray, compare findings across granules, draft machine-actionable guidance, and flag discrepancies for expert review. The factual claims in that workflow remain grounded in deterministic service responses and programmatic checks of units, coordinates, ranges, fill values, chunk layout, and cross-granule consistency.
+\ac{AI} is the right tool for this project because the task is not a single
+deterministic check; it is an evidence-gathering workflow across many
+heterogeneous collections. An agent can traverse collection structure, inspect
+\ac{CMR} and \ac{DAP4} metadata, sample representative granules with \ac{PyDAP}
+or Xarray, compare findings across granules, draft machine-actionable guidance,
+and flag discrepancies for expert review. The factual claims in that workflow
+remain grounded in deterministic service responses and programmatic checks of
+units, coordinates, ranges, fill values, chunk layout, and cross-granule
+consistency.
 
-The proposed work advances the ESDS \ac{AI} Strategy primarily within the Infrastructure and Access pillars. It strengthens Infrastructure by improving metadata systems, \ac{AI}-readiness, and open machine-readable interfaces, and it strengthens Access by making NASA data easier for both humans and \ac{AI} agents to find and use through existing services. It also supports Governance and Standards through evidence-linked review of generated guidance and Operational Intelligence through collection-health signals about metadata and access readiness. Rather than building a new portal or standalone \ac{AI} platform, this project modernizes Hyrax and \ac{EDC} workflows so NASA data remain usable in the external \ac{AI}-assisted environments where researchers increasingly work.
+The proposed work advances the ESDS \ac{AI} Strategy primarily within the
+Infrastructure and Access pillars. It strengthens Infrastructure by improving
+metadata systems, \ac{AI}-readiness, and open machine-readable interfaces, and
+it strengthens Access by making NASA data easier for both humans and \ac{AI}
+agents to find and use through existing services. It also supports Governance
+and Standards through evidence-linked review of generated guidance and
+Operational Intelligence through collection-health signals about metadata and
+access readiness. Rather than building a new portal or standalone \ac{AI}
+platform, this project modernizes Hyrax and \ac{EDC} workflows so NASA data
+remain usable in the external \ac{AI}-assisted environments where researchers
+increasingly work.
 
 \subsection{Agentic inferencing}
 \label{section-1.1}
 
-Independently of this call, we had already begun probing how well current foundation models---among them ChatGPT and Claude Code---could reason about remote data access and the metadata that makes an archive \ac{AI}-ready, using \ac{OPeNDAP} as our test case. The results were far more striking than we had anticipated, and when the ESDS call appeared its alignment with that work was immediate. We summarize that first experiment here; the full write-up, probe scripts, and evidence-tracked audit reports are available in the open \texttt{grep-dap} repository~\cite{grepdap}.
+Independently of this call, we had already begun probing how well current
+foundation models---among them ChatGPT and Claude Code---could reason about
+remote data access and the metadata that makes an archive \ac{AI}-ready, using
+\ac{OPeNDAP} as our test case. The results were far more striking than we had
+anticipated, and when the ESDS call appeared its alignment with that work was
+immediate. We summarize that first experiment here; the full write-up, probe
+scripts, and evidence-tracked audit reports are available in the open
+\texttt{grep-dap} repository~\cite{grepdap}.
 
-The premise was simple. The \ac{OPeNDAP} \ac{DAP} was designed with a rigid \emph{syntactic} metadata structure (shapes, dimensions, and data types) but a deliberately unconstrained \emph{semantic} structure (units, coordinates, and provenance). That design lowered the barrier to publishing data, but it left the semantic metadata of real archives varying from fully \ac{CF}-compliant to entirely absent. We asked whether a foundation model, disciplined by the \ac{OPeNDAP} protocol and by direct statistical probing of the data themselves, could recover that missing meaning the way an experienced scientist does when handed an unfamiliar dataset: reading directory and variable names, parsing the structural metadata, sampling values, and comparing against better-annotated sibling datasets.
+The premise was simple. The \ac{OPeNDAP} \ac{DAP} was designed with a rigid
+\emph{syntactic} metadata structure (shapes, dimensions, and data types) but a
+deliberately unconstrained \emph{semantic} structure (units, coordinates, and
+provenance). That design lowered the barrier to publishing data, but it left the
+semantic metadata of real archives varying from fully \ac{CF}-compliant to
+entirely absent. We asked whether a foundation model, disciplined by the
+\ac{OPeNDAP} protocol and by direct statistical probing of the data themselves,
+could recover that missing meaning the way an experienced scientist does when
+handed an unfamiliar dataset: reading directory and variable names, parsing the
+structural metadata, sampling values, and comparing against better-annotated
+sibling datasets.
 
-We ran the agent against a live Hyrax server at the \ac{URI}, anchoring every conclusion in three classes of evidence: catalog-level structure (directory and file-naming grammar), the structural \ac{DAP4} metadata, and small, hypothesis-driven hyperslab probes of the data. The results exceeded our expectations:
+We ran the agent against a live Hyrax server at the \ac{URI}, anchoring every
+conclusion in three classes of evidence: catalog-level structure (directory and
+file-naming grammar), the structural \ac{DAP4} metadata, and small,
+hypothesis-driven hyperslab probes of the data. The results exceeded our
+expectations:
 \begin{enumerate}[topsep=2pt]
-    \item On a \ac{CF}-labelled collection, the agent audited 44 variables and flagged two \emph{factually wrong} unit declarations---a wind speed declared \texttt{units="mm"} and a pixel count declared \texttt{units="C"}---by comparing each declaration against the variable's value range and its sibling variables. These are errors a human would have likely caught but, well, in this case the human involved missed them.
-    \item On an adjacent collection carrying \emph{zero} semantic metadata, the agent reconstructed units, coordinate orientation, and variable meaning by combining variable-name grammar, inheritance from a better-annotated sibling collection, and direct geographic probes. Only one of four candidate latitude/longitude conventions classified twelve known land and ocean points correctly, fixing the grid orientation unambiguously.
-    \item For a derived gradient product, the agent estimated a physically essential quantity supplied nowhere in the metadata---the spatial support of the differencing operator---at $5 \pm 2$\,km, via three independent methods that converged.
+    \item On a \ac{CF}-labelled collection, the agent audited 44 variables and
+    flagged two \emph{factually wrong} unit declarations---a wind speed declared
+    \texttt{units="mm"} and a pixel count declared \texttt{units="C"}---by
+    comparing each declaration against the variable's value range and its
+    sibling variables. These are errors a human would have likely caught but,
+    well, in this case the human involved missed them.
+    \item On an adjacent collection carrying \emph{zero} semantic metadata, the
+    agent reconstructed units, coordinate orientation, and variable meaning by
+    combining variable-name grammar, inheritance from a better-annotated sibling
+    collection, and direct geographic probes. Only one of four candidate
+    latitude/longitude conventions classified twelve known land and ocean points
+    correctly, fixing the grid orientation unambiguously.
+    \item For a derived gradient product, the agent estimated a physically
+    essential quantity supplied nowhere in the metadata---the spatial support of
+    the differencing operator---at $5 \pm 2$\,km, via three independent methods
+    that converged.
 \end{enumerate}
 
-Remarkably, after being instructed to learn about \ac{OPeNDAP} and \acs{PyDAP}, the model achieved items 1 and 2 in response to only the following two straightforward, open-ended prompts:
+Remarkably, after being instructed to learn about \ac{OPeNDAP} and \acs{PyDAP},
+the model achieved items 1 and 2 in response to only the following two
+straightforward, open-ended prompts:
 
 \begin{enumerate}
-    \item Generate a table for https://sst.uri.edu/Aqua/SST\_Orbits/. For each variable in the dataset, indicate whether the semantic (COARDS) metadata essential for using that variable are complete. If the metadata are complete, state that explicitly. If they are incomplete, list the missing COARDS metadata and provide your best guess for what the values should be. In addition, identify, again for each variable, any semantic metadata that are not strictly required by COARDS but that you believe would significantly facilitate use and interpretation of the dataset.
+    \item Generate a table for https://sst.uri.edu/Aqua/SST\_Orbits/. For each
+    variable in the dataset, indicate whether the semantic (COARDS) metadata
+    essential for using that variable are complete. If the metadata are
+    complete, state that explicitly. If they are incomplete, list the missing
+    COARDS metadata and provide your best guess for what the values should be.
+    In addition, identify, again for each variable, any semantic metadata that
+    are not strictly required by COARDS but that you believe would significantly
+    facilitate use and interpretation of the dataset.
 
-    \item Repeat the above for https://sst.uri.edu/gradients\_by\_period/. Since this archive has no semantic metadata, you will have to infer whatever you can. I suggest that you group the semantic metadata by inferred values for which you are very confident, those for which you are not sure but have guessed at entries and those for which you do not feel comfortable guessing. You should also group these by essential and 'would be nice'.
+    \item Repeat the above for https://sst.uri.edu/gradients\_by\_period/. Since
+    this archive has no semantic metadata, you will have to infer whatever you
+    can. I suggest that you group the semantic metadata by inferred values for
+    which you are very confident, those for which you are not sure but have
+    guessed at entries and those for which you do not feel comfortable guessing.
+    You should also group these by essential and 'would be nice'.
 \end{enumerate}
 
-Critically, the agent distinguished \emph{stated}, \emph{inferred}, and \emph{not-safely-guessable} attributes; graded each inference by the strength of its supporting evidence; and explicitly refused to fabricate fields it could not defend (e.g., \texttt{date\_created}, processing history). This evidence discipline---inference under explicit confidence, with refusal as a first-class outcome---is what makes the approach safe to apply to operational archives, and it directly motivates the curation-plus-risk-management design of the work proposed below (Sections~\ref{section-2.1}--\ref{section-2.3}).
+Critically, the agent distinguished \emph{stated}, \emph{inferred}, and
+\emph{not-safely-guessable} attributes; graded each inference by the strength of
+its supporting evidence; and explicitly refused to fabricate fields it could not
+defend (e.g., \texttt{date\_created}, processing history). This evidence
+discipline---inference under explicit confidence, with refusal as a first-class
+outcome---is what makes the approach safe to apply to operational archives, and
+it directly motivates the curation-plus-risk-management design of the work
+proposed below (Sections~\ref{section-2.1}--\ref{section-2.3}).
 
 \section{Proposed Approach}
 \textcolor{red}{\textit{Describe your AI-powered solution. What will you build or enhance? What AI tools, models, or frameworks will you use and why? How does this connect to an existing project or operational system? (Suggested: 1–1.5 pages)}}
