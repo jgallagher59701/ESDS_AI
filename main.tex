@@ -70,57 +70,68 @@
 
 \section{Overview and Background}
 
-NASA \ac{ESDS} manages nearly 180 petabytes of Earth science data today, with
-holdings expected to exceed 600 petabytes by the early 2030s. At that scale, a
-practical operational problem becomes harder to manage by manual review alone:
+NASA \ac{ESDS} manages 180$+$ petabytes of Earth science data today, with
+holdings expected to exceed 600 petabytes by the early 2030s. At that scale,
+operational problems become impossible to manage by manual review alone:
 metadata records, access guidance, and cloud-optimization artifacts can drift
-from the scientific data products they describe. When this happens, users and
-automated clients encounter incomplete dataset characterization, stale or
-inconsistent \ac{DMR++} inventories, ambiguous units and coordinate conventions,
-and brittle subsetting behavior. The result is more failed discovery, more
-failed first attempts at access, and more staff time spent diagnosing
-collection-specific issues before researchers can begin useful scientific work.
+from the scientific data products they describe. The result is more failed
+discovery, more failed first attempts at access, and more staff time spent
+diagnosing collection-specific issues before researchers can begin useful
+scientific work.
 
-The current ESDS environment already contains many of the pieces needed to
+The current \ac{ESDS} environment already contains many of the pieces needed to
 address this problem. \ac{CMR} provides authoritative collection and granule
-metadata; Hyrax and \ac{OPeNDAP}/\ac{DAP4} provide remote, subset-oriented
+metadata; Hyrax and \ac{OPeNDAP} provides remote, subset-oriented
 access to the data themselves; \ac{DMR++} inventories expose cloud retrieval
-structure; and DAAC and \ac{EDC} teams perform expert review and operational
+structure; and \acs{DAAC} perform expert review and operational
 curation. What remains difficult is applying these capabilities consistently
 across large and growing archives, especially when the information needed to
-judge a collection is distributed across \ac{CMR} records, service responses,
-structural metadata, and the values inside representative granules.
+judge a collection is distributed across resources.
 
-Several approaches already point toward a solution but do not, by themselves,
-close the gap. Existing Hyrax directory views and the \ac{CMR} virtual directory
-work make collections easier to browse and crawl. Manual metadata review can
-identify authoritative corrections, but it does not scale to every collection
-and every access pattern. Our proof-of-concept work at the \ac{URI}, summarized
-below, showed that an \ac{AI} agent grounded in \ac{OPeNDAP} protocol knowledge
-and direct data probes can detect wrong or missing semantic metadata while
-distinguishing stated facts from defensible inferences and unsupported guesses.
-
-\ac{AI} is the right tool for this project because the task is not a single
-deterministic check; it is an evidence-gathering workflow across many
+\ac{AI} is the right tool to address this problem because the task is not a
+single deterministic check; it is an evidence-gathering workflow across many
 heterogeneous collections. An agent can traverse collection structure, inspect
-\ac{CMR} and \ac{DAP4} metadata, sample representative granules with \ac{PyDAP}
-or Xarray, compare findings across granules, draft machine-actionable guidance,
-and flag discrepancies for expert review. The factual claims in that workflow
-remain grounded in deterministic service responses and programmatic checks of
-units, coordinates, ranges, fill values, chunk layout, and cross-granule
-consistency.
+\ac{CMR} and \ac{OPeNDAP} metadata, sample representative granules with
+\ac{OPeNDAP}, compare findings across granules, draft machine-actionable
+guidance, and flag discrepancies for expert review. The factual claims in that
+workflow remain grounded in deterministic service responses and programmatic
+checks of units, coordinates, ranges, fill values, chunk layout, and
+cross-granule consistency.
 
-The proposed work advances the ESDS \ac{AI} Strategy primarily within the
-Infrastructure and Access pillars. It strengthens Infrastructure by improving
-metadata systems, \ac{AI}-readiness, and open machine-readable interfaces, and
-it strengthens Access by making NASA data easier for both humans and \ac{AI}
-agents to find and use through existing services. It also supports Governance
-and Standards through evidence-linked review of generated guidance and
-Operational Intelligence through collection-health signals about metadata and
-access readiness. Rather than building a new portal or standalone \ac{AI}
-platform, this project modernizes Hyrax and \ac{EDC} workflows so NASA data
-remain usable in the external \ac{AI}-assisted environments where researchers
-increasingly work.
+% Several approaches already point toward a solution but do not, by themselves,
+% close the gap. Existing Hyrax directory views and the \ac{CMR} virtual directory
+% work make collections easier to browse and crawl. Manual metadata review can
+% identify authoritative corrections, but it does not scale to every collection
+% and every access pattern. Our proof-of-concept work at the \ac{URI}, summarized
+% below, showed that an \ac{AI} agent grounded in \ac{OPeNDAP} protocol knowledge
+% and direct data probes can detect wrong or missing semantic metadata while
+% distinguishing stated facts from defensible inferences and unsupported guesses.
+
+% \ac{AI} is the right tool for this project because the task is not a single
+% deterministic check; it is an evidence-gathering workflow across many
+% heterogeneous collections. An agent can traverse collection structure, inspect
+% \ac{CMR} and \ac{DAP4} metadata, sample representative granules with \ac{PyDAP}
+% or Xarray, compare findings across granules, draft machine-actionable guidance,
+% and flag discrepancies for expert review. The factual claims in that workflow
+% remain grounded in deterministic service responses and programmatic checks of
+% units, coordinates, ranges, fill values, chunk layout, and cross-granule
+% consistency.
+
+The work described in Section~\ref{} advances the \ac{ESDS} \ac{AI} Strategy
+primarily within the Infrastructure and Access pillars. It strengthens
+Infrastructure by improving metadata systems, \ac{AI}-readiness, and open
+machine-readable interfaces, and it strengthens Access by making NASA data
+easier for both humans and \ac{AI} agents to find and use through existing
+services. Instead of building a new portal or platform, this project modernizes
+Hyrax and \ac{EDC} workflows.
+
+% It also supports Governance
+% and Standards through evidence-linked review of generated guidance and
+% Operational Intelligence through collection-health signals about metadata and
+% access readiness. Rather than building a new portal or standalone \ac{AI}
+% platform, this project modernizes Hyrax and \ac{EDC} workflows so NASA data
+% remain usable in the external \ac{AI}-assisted environments where researchers
+% increasingly work.
 
 \subsection{Agentic inferencing}
 \label{section-1.1}
@@ -129,7 +140,7 @@ Independently of this call, we had already begun probing how well current
 foundation models---among them ChatGPT and Claude Code---could reason about
 remote data access and the metadata that makes an archive \ac{AI}-ready, using
 \ac{OPeNDAP} as our test case. The results were far more striking than we had
-anticipated, and when the ESDS call appeared its alignment with that work was
+anticipated, and when the \ac{ESDS} call appeared its alignment with that work was
 immediate. We summarize that first experiment here; the full write-up, probe
 scripts, and evidence-tracked audit reports are available in the open
 \texttt{grep-dap} repository~\cite{grepdap}.
