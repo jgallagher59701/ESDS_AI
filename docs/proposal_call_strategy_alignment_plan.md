@@ -72,7 +72,7 @@ Plan:
 - Add project duration/start timing only if it can be done without violating the template or consuming useful space.
 - Check the requested-funding total against the budget table after rounding is settled.
 
-### Overview and Background
+### Overview and Background DONE jhrg 6/5/26
 
 Current fit:
 
@@ -90,7 +90,7 @@ Plan:
 - Make "why AI" specific: an agent can inspect many collections, compare evidence across granules, draft guidance, and flag discrepancies, while deterministic CMR/OPeNDAP/PyDAP/Xarray/DMR++ checks keep factual claims grounded.
 - Add a sentence connecting the problem to the strategy's time-to-first-use and NASA-data-in-external-AI-tools themes.
 
-### Overview Subsection: Agentic Inferencing
+### Overview Subsection: Agentic Inferencing DONE jhrg 6/6/26
 
 Current fit:
 

@@ -171,8 +171,6 @@ tooling, validation, and risk controls.
 
 \section{Proposed Approach}
 \label{section-2}
-\textcolor{red}{\textit{Describe your AI-powered solution. What will you build or enhance? What AI tools, models, or frameworks will you use and why? How does this connect to an existing project or operational system? (Suggested: 1–1.5 pages)}}
-\textcolor{red}{\textit{Check this since it was rewritten by Codex}}
 
 This project extends Hyrax in the \ac{EDC} with a three-part \ac{AI}-assisted
 workflow that improves discovery, metadata quality, and autonomous data access
@@ -239,24 +237,12 @@ While Parts 1 and 2 make collections discoverable and queryable by \ac{AI} tools
 
 \textbf{What the agent does, per collection} Walking the granules of a collection through \acs{OPeNDAP}, the agent (1) confirms that the stated semantic metadata is internally consistent across granules and consistent with the data itself, and (2) accumulates collection-level facts that no single granule record exposes. Each finding is anchored in evidence and graded by confidence, and the agent explicitly refuses to assert anything it cannot defend.
 
-
-
-%% This seems like a good conclusion, so I'm keeping it here for later use. jhrg 5/27/26 
-% The proposed system will enable autonomous metadata characterization in which AI-driven clients use \ac{DAP4} subsetting operations to derive, validate, and reconcile metadata directly from underlying Earth science datasets, supporting archive stewardship and metadata quality assessment workflows across NASA \ac{DAAC} systems. A critical output is the set of usage markdown files per collection that will direct an Agentic AI to sample and explore data efficiently using the most up-to-date and scalable API access patterns currently used by expert data users. These markdown files will be stored in an S3 bucket, initially owned by \acs{OPeNDAP} with write access, with the objective of making the files available upon request. 
-
-%% This also seems like a good conclusion, too... ;-) jhrg 5/27/26
-% The resulting prototype will demonstrate how existing operational Earthdata infrastructure can evolve toward AI-native interoperability without requiring disruptive architectural changes or replacement of existing systems. Deliverables will include prototype Hyrax extensions, AI-readable service descriptions, metadata introspection utilities, open-source software artifacts, and validation experiments using representative NASA Earthdata collections in collaboration with participating DAAC partners. Validation activities will evaluate improvements in autonomous dataset discovery, metadata completeness assessment, retrieval correctness, and AI-driven subsetting efficiency. By enhancing Hyrax for autonomous scientific workflows, this project positions NASA Earthdata infrastructure to support the next generation of AI-mediated Earth science research and data-intensive analysis systems.
-
 \section{Limitations and Challenges}
-\textcolor{red}{\textit{Be honest about what could go wrong, what is uncertain, and what dependencies exist. How will you manage or mitigate these? (Suggested: 0.5 pages)}}
-
 Each of the three parts of this project have risks. The deployment of our existing Virtual Directory Interface has been hampered by a different interface with overlapping functionality developed by the \ac{CMR} team. If \ac{ESDIS} does not approve the deployment of our interface, we will need to reassess if the Hyrax service in the \ac{EDC} can be crawled by generic \ac{AI} tools. Secondly, We propose to develop an agentic \ac{AI} tool to build the metadata documents in part two. This will be a significant undertaking using technology that is very new and rapidly changing. Our group will need to adapt traditional software engineering to a new kind of system, particularly for this second phase because we foresee developing tools/functions using LangChain and/or LangGraph. We will need to develop automated tests and \ac{CICD} for the products of those development efforts. Lastly, in the final part of the project, documents representing the contents of NASA data sets will be accessible to end-users. The workflow for this part of the project includes a review of the documents by an expert, but the potential for misrepresenting data still exists.
 
 We understand that this project will have greater risk, and different kinds of risk, than the software development done for our NASA subcontract. To address those `unknown unknowns,' we will take advantage of the cohort of teams also funded by this call to seek advice and share solutions to problems. 
 
 \section{Deliverables}
-\textcolor{red}{\textit{List the specific outputs you will produce: working prototype, integration, documentation, code repository. Be concrete. What will exist at the end of the project that does not exist today? (Suggested: 0.5 pages)}}
-
 We will produce three deliverables:
 \begin{enumerate}
     \item A Virtual Directory Interface that enables crawling \acs{OPeNDAP}-enabled data sets in \ac{ESDIS} using generic \ac{AI} tools. This will follow the existing interface provided by Hyrax and other \acs{OPeNDAP} servers. This will use an existing prototype that has already run in the \ac{EDC} system. This will be integrated into the Hyrax software deployed in \ac{ESDIS}. This web-friendly user interface is already well documented. The software is already in an open GitHub repository managed by \acs{OPeNDAP} (as is all the Hyrax software).
@@ -267,10 +253,6 @@ We will produce three deliverables:
 \end{enumerate}
 
 \section{Validations and Path to Operations}
-\textcolor{red}{\textit{How will you know it works? Who will test or validate the output? What would need to happen for this to move from prototype to operational use? (Suggested: 0.5 pages)}}
-
-\textcolor{red}{\textit{Check this since it was rewritten by Codex}}
-
 Our validation approach follows from the three deliverables. For Part 1, we will validate the Virtual Directory Interface by confirming that generic \ac{AI} clients can discover and traverse representative \acs{OPeNDAP}-enabled collections in \ac{ESDIS} without collection-specific adaptation. Success will be measured by whether the interface exposes the expected collection structure and whether autonomous crawlers can reach the same collection endpoints that expert users reach.
 
 For Part 2, we will validate the agentic metadata-generation workflow by comparing the generated markdown documents against authoritative sources, including \ac{CMR} collection and granule metadata, and the results of direct \ac{DAP4} inspection. The system will be judged on whether it produces complete, evidence-linked metadata summaries, correctly flags uncertainty or disagreement, and avoids asserting facts that are not supported by the data or upstream metadata. Members of the project team, together with collaborators familiar with the selected \ac{ESDIS} collections, will review a representative sample of these generated documents to confirm that they are accurate and useful for downstream retrieval tasks.
@@ -280,7 +262,6 @@ For Part 3, we will validate operational usefulness by testing whether an autono
 The path to operations is intentionally incremental because this project extends existing \acs{OPeNDAP} and Hyrax capabilities rather than introducing a new service that must be adopted independently. The Virtual Directory Interface can be incorporated into Hyrax deployments using the same software distribution mechanisms already used for \acs{OPeNDAP} server updates. The metadata-generation software will be maintained in an open repository so that it can be inspected by NASA partners, and improved through operational experience. The generated markdown guidance can be reviewed by domain experts before publication and then served through existing \ac{DAP4} responses, allowing adoption first in pilot collections and then, if successful, across additional \ac{ESDIS} holdings.
 
 \section{Timeline}
-\textcolor{red}{\textit{Provide a month-by-month, milestone-based schedule for the project duration. Include key decision points and the final deliverable date.}}
 
 \subsection*{Part 1: AI-discoverable and crawlable service interfaces} 
 \begin{description}
@@ -304,7 +285,6 @@ The path to operations is intentionally incremental because this project extends
 \end{description}
 
 \section{Team}
-\textcolor{red}{\textit{List the people who will do the work, their roles, and the estimated effort in person-months. Include any key collaborators or external dependencies.}}
 
 \begin{center}
 \begin{tabular}{|l|l|p{3.5in}|}
@@ -325,7 +305,6 @@ Miguel \`{A}ngel Jim\`{e}nez & unfunded & domain expert and testing; collaborato
 \end{center}
 
 \section{Budget Summary}
-\textcolor{red}{\textit{Provide a high-level budget breakdown: personnel, compute, other direct costs. One page or less.}}
 
 \begin{center}
 \begin{tabular}{|l|l|l|l|l|}
