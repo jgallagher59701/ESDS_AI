@@ -4,11 +4,19 @@ then `pip install pdftotext`
 To get latex on OSX: `brew install  --cask basictex`
 
 Set up the path: 
-echo 'export PATH="/Library/TeX/texbin:$PATH"' >> ~/.zshrc
-source ~/.zshrc
+`echo 'export PATH="/Library/TeX/texbin:$PATH"' >> ~/.zshrc`
+`source ~/.zshrc`
 
 Then, install TeX live manager
 
 `sudo tlmgr update --self`
 `sudo tlmgr install <package_name>`
 
+Install enumitem acronym bigfoot xstring
+
+To use fontspec (and thus Arial)
+`sudo tlmgr install fontspec lualatex-math`
+
+`
+
+Compile latex using `xelatex main`
