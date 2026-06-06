@@ -48,7 +48,8 @@ Use these as constraints when revising the proposal.
 
 ## Highest-Priority Fixes
 
-1. Remove all visible red template prompts and internal "check this" notes from `main.tex`.
+1. Remove all visible red template prompts and internal "check this" notes from
+   `main.tex`. DONE jhrg 6/6/26
 2. Add explicit validation metrics and named validators, especially for crawlability, metadata correctness, hallucination control, and retrieval success.
 3. Rework the deliverables so they include every mandatory call deliverable: prototype or integration, final report, documented open-source artifact, and presentation/demo.
 4. Make external dependencies and risk controls explicit: LLM/model choice, LangChain/LangGraph or alternatives, cloud/API costs, licensing, data rights, security, prompt injection, and human review.
