@@ -1,15 +1,13 @@
 
 \documentclass[11pt]{article}
-% \usepackage{authblk}                % jhrg 5/27/26
+
 \usepackage[margin=1in]{geometry}   % See geometry.pdf to learn the layout options. There are lots.
 \geometry{letterpaper}              % ... or a4paper or a5paper or ... 
-% \usepackage{kantlipsum} % for mock text
+
 \DeclareRobustCommand{\subtitle}[1]{\\#1}
 \usepackage{graphicx}
-% \usepackage{amssymb}               % Unused in main.tex and included inputs.
-% \usepackage{amsmath}               % Unused in main.tex and included inputs.
-% \usepackage{epstopdf}              % No EPS graphics are included.
 \usepackage{enumitem}
+
 \usepackage[colorlinks=true]{hyperref}
 \hypersetup{
     colorlinks = true,
@@ -17,29 +15,22 @@
     linkcolor=blue,
     urlcolor=blue
 }    
-% \usepackage{pdfpages}              % No \includepdf commands are used.
-% \usepackage{wrapfig}               % No wrapfigure environments are used.
-% \usepackage{enumitem}
-% \usepackage{bbding}                % No bbding symbols are used.
-% \usepackage{multirow}              % No \multirow commands are used.
-% \usepackage[normalem]{ulem}        % Only needed if \redout is used.
 \newcommand\redout{\bgroup\markoverwith
 {\textcolor{red}{\rule[.5ex]{2pt}{0.4pt}}}\ULon}
-% \usepackage{xcolor}                % Duplicate; loaded below with dvipsnames.
-% \usepackage[printonlyused]{acronym} 
+
 \usepackage[nolist]{acronym}        % They are defined in the text. jhrg 5/28/26
 \input{Abbreviations}
 \usepackage{fontspec}               % Use the XeLaTeX compiler in Overleaf for 'fontspec' jhrg 5/29/26
 % \setmainfont{Arial}               % Use Arial for the final copy . jhrg 5/29/26
 \usepackage[dvipsnames]{xcolor}
 \definecolor{mygreen}{RGB}{0, 153, 0}
-% \usepackage{authblk}
 \DeclareGraphicsRule{.tif}{png}{.png}{`convert #1 `dirname #1`/`basename #1 .tif`.png}
 
 \usepackage[numbers]{natbib}
 
 \usepackage{listings}
 
+% \usepackage{authblk}   
 % \title{AI-driven Metadata Curator and Agentic AI Enabler via OPeNDAP to Meet Challenges in the Earth Science Data System}
 
 %\author[1]{James Gallagher}
@@ -51,7 +42,6 @@
 
 \begin{document}
 
-% \bibliographystyle{agu04}
 \bibliographystyle{plain}
 
 % Set up for the listing environment. jhrg 5/29/26
