@@ -238,18 +238,54 @@ While Parts 1 and 2 make collections discoverable and queryable by \ac{AI} tools
 \textbf{What the agent does, per collection} Walking the granules of a collection through \acs{OPeNDAP}, the agent (1) confirms that the stated semantic metadata is internally consistent across granules and consistent with the data itself, and (2) accumulates collection-level facts that no single granule record exposes. Each finding is anchored in evidence and graded by confidence, and the agent explicitly refuses to assert anything it cannot defend.
 
 \section{Limitations and Challenges}
-Each of the three parts of this project have risks. The deployment of our existing Virtual Directory Interface has been hampered by a different interface with overlapping functionality developed by the \ac{CMR} team. If \ac{ESDIS} does not approve the deployment of our interface, we will need to reassess if the Hyrax service in the \ac{EDC} can be crawled by generic \ac{AI} tools. Secondly, We propose to develop an agentic \ac{AI} tool to build the metadata documents in part two. This will be a significant undertaking using technology that is very new and rapidly changing. Our group will need to adapt traditional software engineering to a new kind of system, particularly for this second phase because we foresee developing tools/functions using LangChain and/or LangGraph. We will need to develop automated tests and \ac{CICD} for the products of those development efforts. Lastly, in the final part of the project, documents representing the contents of NASA data sets will be accessible to end-users. The workflow for this part of the project includes a review of the documents by an expert, but the potential for misrepresenting data still exists.
+Each of the three parts of this project have risks. The deployment of our
+existing Virtual Directory Interface has been hampered by a different interface
+with overlapping functionality developed by the \ac{CMR} team. If \ac{ESDIS}
+does not approve the deployment of our interface, we will need to reassess if
+the Hyrax service in the \ac{EDC} can be crawled by generic \ac{AI} tools.
+Secondly, We propose to develop an agentic \ac{AI} tool to build the metadata
+documents in part two. This will be a significant undertaking using technology
+that is very new and rapidly changing. Our group will need to adapt traditional
+software engineering to a new kind of system, particularly for this second phase
+because we foresee developing tools/functions using LangChain and/or LangGraph.
+We will need to develop automated tests and \ac{CICD} for the products of those
+development efforts. Lastly, in the final part of the project, documents
+representing the contents of NASA data sets will be accessible to end-users. The
+workflow for this part of the project includes a review of the documents by an
+expert, but the potential for misrepresenting data still exists.
 
-We understand that this project will have greater risk, and different kinds of risk, than the software development done for our NASA subcontract. To address those `unknown unknowns,' we will take advantage of the cohort of teams also funded by this call to seek advice and share solutions to problems. 
+We understand that this project will have greater risk, and different kinds of
+risk, than the software development done for our NASA subcontract. To address
+those `unknown unknowns,' we will take advantage of the cohort of teams also
+funded by this call to seek advice and share solutions to problems. 
 
 \section{Deliverables}
 We will produce three deliverables:
 \begin{enumerate}
-    \item A Virtual Directory Interface that enables crawling \acs{OPeNDAP}-enabled data sets in \ac{ESDIS} using generic \ac{AI} tools. This will follow the existing interface provided by Hyrax and other \acs{OPeNDAP} servers. This will use an existing prototype that has already run in the \ac{EDC} system. This will be integrated into the Hyrax software deployed in \ac{ESDIS}. This web-friendly user interface is already well documented. The software is already in an open GitHub repository managed by \acs{OPeNDAP} (as is all the Hyrax software).
+    \item A Virtual Directory Interface that enables crawling
+    \acs{OPeNDAP}-enabled data sets in \ac{ESDIS} using generic \ac{AI} tools.
+    This will follow the existing interface provided by Hyrax and other
+    \acs{OPeNDAP} servers. This will use an existing prototype that has already
+    run in the \ac{EDC} system. This will be integrated into the Hyrax software
+    deployed in \ac{ESDIS}. This web-friendly user interface is already well
+    documented. The software is already in an open GitHub repository managed by
+    \acs{OPeNDAP} (as is all the Hyrax software).
 
-    \item An agentic \ac{AI} tool that can crawl \acs{OPeNDAP}-enabled data in \ac{ESDIS} and build comprehensive metadata documents written in markdown format. Using markdown streamlines use of the documents by generic \ac{AI} tools. This tool will be used internally to build and maintain these documents. The use of this software and its design will be documented. The software will be hosted on GitHub in a public repository maintained by \acs{OPeNDAP}.
+    \item An agentic \ac{AI} tool that can crawl \acs{OPeNDAP}-enabled data in
+    \ac{ESDIS} and build comprehensive metadata documents written in markdown
+    format. Using markdown streamlines use of the documents by generic \ac{AI}
+    tools. This tool will be used internally to build and maintain these
+    documents. The use of this software and its design will be documented. The
+    software will be hosted on GitHub in a public repository maintained by
+    \acs{OPeNDAP}.
 
-    \item A collection of comprehensive metadata documents that users can access using the \acs{OPeNDAP} service in \ac{ESDIS}. This will be open to the public. We will provide documentation for end-users that will guide them through common use cases. This documentation will be written in Markdown or AsciiDoc and provide just as we have provided documentation on Hyrax and \ac{DMR++} in the past. In addition, we will provide tutorials with code for end-users, similar to the other tutorials we have written for NASA data
+    \item A collection of comprehensive metadata documents that users can access
+    using the \acs{OPeNDAP} service in \ac{ESDIS}. This will be open to the
+    public. We will provide documentation for end-users that will guide them
+    through common use cases. This documentation will be written in Markdown or
+    AsciiDoc and provide just as we have provided documentation on Hyrax and
+    \ac{DMR++} in the past. In addition, we will provide tutorials with code for
+    end-users, similar to the other tutorials we have written for NASA data
 \end{enumerate}
 
 \section{Validations and Path to Operations}
