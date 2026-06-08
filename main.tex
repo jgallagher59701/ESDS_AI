@@ -7,6 +7,7 @@
 \DeclareRobustCommand{\subtitle}[1]{\\#1}
 \usepackage{graphicx}
 \usepackage{enumitem}
+\usepackage{pdfpages}
 
 \usepackage[colorlinks=true]{hyperref}
 \hypersetup{
@@ -19,6 +20,7 @@
 % {\textcolor{red}{\rule[.5ex]{2pt}{0.4pt}}}\ULon}
 
 \usepackage[nolist]{acronym}        % They are defined in the text. jhrg 5/28/26
+\input{acronyms.tex}
 \input{Abbreviations}
 \usepackage{fontspec}               % Use the XeLaTeX compiler in Overleaf for 'fontspec' jhrg 5/29/26
 % \setmainfont{Arial}               % Use Arial for the final copy . jhrg 5/29/26
@@ -53,7 +55,7 @@
 \textbf{Submitting Team / Organizations}: {\em OPeNDAP/EED3} and {\em NASA JPL PODAAC}\\
 \textbf{Team Lead Name and Contact}: {\em James Gallagher, {\em OPeNDAP}, jgallagher@opendap.org, 401.575.3296}\\
 \textbf{ESDS Pillar(s) Addressed}: {\em Infrastructure and Access}\\
-\textbf{Requested Funding}: {\em \$186,785}
+\textbf{Requested Funding}: {\em \$183,177}
 \end{flushleft}
 
 % \maketitle
@@ -324,12 +326,15 @@ The path to operations is intentionally incremental because this project extends
 
 \section{Team}
 
-See Appendix~\ref{app-team} for a table summarizing the team members.
+See Appendix~\ref{app-team} for Table~\ref{tab-team} summarizing the team members.
 
 \section{Budget Summary}
+\label{section-budget}
+% Ideally, we should include 7% for Raytheon's markup on the cost of myself
+% and Hannah. I just guessed at that and put a cap at a bit more than 186K.
 
 \noindent 
-\textbf{Note} See Appendix~\ref{app-budget} for a budget table.\\
+\textbf{Note} See Appendix~\ref{app-budget} for Table~\ref{tab-budget} which summarizes the budget information.\\
 \textbf{Indirect costs} There are no indirect costs added to the
 budget since payment is through the existing \ac{ESDIS} contract
 (EED3\footnote{NASA Earth Observing System Data and Information System Evolution and
@@ -343,11 +348,11 @@ duration. This estimate is based on OpenAI model costs, LangChain usage and AWS
 cloud compute for testing.\\
 \textbf{Personnel} Personnel costs are based on the estimated hours and hourly
 rates for the project team members, as detailed in the budget table above. The
-total personnel cost is \$176,785. {\em James Gallagher} will lead the project
+total personnel cost is \$173,177. {\em James Gallagher} will lead the project
 and provide guidance on the Hyrax/\acs{OPeNDAP} architecture, Virtual Directory interface, agentic AI development
 and software engineering. {\em Hannah Robertson} will contribute to agentic AI
 development and software engineering. {\em Ed Armstrong} will provide
-\ac{DAAC}/domain validation, \ac{PO.DAAC} operational feedback, representative
+\ac{DAAC}/domain validation, \ac{PODAAC} operational feedback, representative
 collection selection and testing support. {\em
 Miguel Ángel Jiménez} will be funded by \ac{OPeNDAP} to collaborate with {\em Hannah Robertson} 
 on agentic \ac{AI} development and use of \ac{PyDAP} as part of his role in \ac{OPeNDAP}
@@ -362,7 +367,10 @@ where he has published extensively.
 
 \section{Team}
 \label{app-team}
-\begin{center}
+\begin{table}[htbp]
+  \centering
+  \caption{Team members and their contributions to the project.}
+  \label{tab-team}
 \begin{minipage}
 {\linewidth}
 \begin{tabular}{|l|l|p{3.5in}|}
@@ -381,15 +389,15 @@ Peter Cornillon & unfunded & Domain expert and testing; collaborator at Universi
 \hline
 \end{tabular}
 \end{minipage}
-\end{center}
+\end{table}
 
 
 \section{Budget table}
 \label{app-budget}
 \begin{table}[htbp]
   \centering
-  \caption{This is your table caption.}
-  \label{tab:my_table}
+  \caption{Summarized budget information for the project.}
+  \label{tab-budget}
 \begin{tabular}{|l|l|l|l|l|}
 
 \hline
@@ -399,7 +407,7 @@ James Gallagher & \$220.15 & 2 & \$73,530 \\
 \hline
 Hannah Robertson & \$199.07 & 2 & \$66,489 \\
 \hline
-Ed Armstrong & \$220.15 & 1 & \$36,765 \\
+Ed Armstrong & See budget in Appendix~\ref{app-jpl-budget} & 1 & \$33,158 \\
 \hline
  & Monthly cost & &  \\
 \hline
@@ -409,12 +417,28 @@ Tooling & n/a & & n/a \\
 \hline
  &  &  &  \\
 \hline
-Total &  &  & \$186,785 \\
+Total &  &  & \$183,177 \\
 \hline
 \end{tabular}
 \end{table}
 
+\clearpage % Ensures figures/tables from the previous section are output
+\section{Budget details for Ed Armstrong at JPL}
+\label{app-jpl-budget}
+\begin{figure}[htbp]
+    \centering
+    % \caption{Budget details for Ed Armstrong at JPL.}
+    \includepdf[
+    pages=1, % Inserts only the first page. Use 'pages=-' for all pages
+    pagecommand={\thispagestyle{plain}}, % Standard page numbers
+    offset=0mm -10mm, % Adjusts the (x,y) position of the included page    
+    scale=0.9, % Scales the PDF down slightly to fit LaTeX margins
+    frame=false % Set to true to draw a border around the included page
+    ]{budgets/Ed-Armstrong.pdf}
+\end{figure}    
+
+\clearpage % Ensures figures/tables from the previous section are output
+
 \bibliography{references}
-\input{acronyms.tex}
 
 \end{document}
