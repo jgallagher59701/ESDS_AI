@@ -15,8 +15,8 @@
     linkcolor=blue,
     urlcolor=blue
 }    
-\newcommand\redout{\bgroup\markoverwith
-{\textcolor{red}{\rule[.5ex]{2pt}{0.4pt}}}\ULon}
+% \newcommand\redout{\bgroup\markoverwith
+% {\textcolor{red}{\rule[.5ex]{2pt}{0.4pt}}}\ULon}
 
 \usepackage[nolist]{acronym}        % They are defined in the text. jhrg 5/28/26
 \input{Abbreviations}
@@ -312,7 +312,7 @@ The path to operations is intentionally incremental because this project extends
     \item [Month 3] Design the agent workflow, evidence schema, and `usage.md` schema.
     \item [Month 4] Implement initial \ac{CMR}, \acs{OPeNDAP}/\ac{DAP4}, \ac{PyDAP}/Xarray, and \ac{DMR++} tool calls.
     \item [Month 5] Generate the first `usage.md` artifacts for representative collections.
-    \item [Month 6] Run expert review and revise validators based on false positives and false negatives. Decision point: confirm the metadata-generation approach before integration work.
+    \item [Month 6] Run expert review and revise validators based on false positives and false negatives. Decision point: confirm the metadata-generation approach before the integration work.
     \end{description}
 
 \subsection*{Part 3: Machine-actionable guidance for autonomous data retrieval workflows} 
@@ -324,28 +324,72 @@ The path to operations is intentionally incremental because this project extends
 
 \section{Team}
 
+See Appendix~\ref{app-team} for a table summarizing the team members.
+
+\section{Budget Summary}
+
+\noindent 
+\textbf{Note} See Appendix~\ref{app-budget} for a budget table.\\
+\textbf{Indirect costs} There are no indirect costs added to the
+budget since payment is through the existing \ac{ESDIS} contract
+(EED3\footnote{NASA Earth Observing System Data and Information System Evolution and
+Development-3} for \acs{OPeNDAP}).\\
+\textbf{Hardware procurement} No hardware procurement is requested; existing
+infrastructure will be utilized.\\
+\textbf{Travel} Travel is excluded from the budget.\\
+\textbf{Other direct costs} Other direct costs include cloud compute resources
+for AI model and inference, estimated at \$10,000 over the project
+duration. This estimate is based on OpenAI model costs, LangChain usage and AWS
+cloud compute for testing.\\
+\textbf{Personnel} Personnel costs are based on the estimated hours and hourly
+rates for the project team members, as detailed in the budget table above. The
+total personnel cost is \$176,785. {\em James Gallagher} will lead the project
+and provide guidance on the Hyrax/\acs{OPeNDAP} architecture, Virtual Directory interface, agentic AI development
+and software engineering. {\em Hannah Robertson} will contribute to agentic AI
+development and software engineering. {\em Ed Armstrong} will provide
+\ac{DAAC}/domain validation, \ac{PO.DAAC} operational feedback, representative
+collection selection and testing support. {\em
+Miguel Ángel Jiménez} will be funded by \ac{OPeNDAP} to collaborate with {\em Hannah Robertson} 
+on agentic \ac{AI} development and use of \ac{PyDAP} as part of his role in \ac{OPeNDAP}
+as the Scientific Community Director. {\em Peter Cornillon} is the originator of the
+work described in the grep-dap project~\cite{cornillon-grepdap-2026} and will provide
+consultation as needed, as well as serving as a Domain expert in Physical Oceanography
+where he has published extensively.
+
+\pagebreak
+
+\appendix
+
+\section{Team}
+\label{app-team}
 \begin{center}
+\begin{minipage}
+{\linewidth}
 \begin{tabular}{|l|l|p{3.5in}|}
 \hline
 Name & Effort & Role / Contribution \\
 \hline
-James Gallagher & 2 months & project lead; agentic \ac{AI} development; software engineering \\
+James Gallagher & 2 months & Project lead; agentic \ac{AI} development; software engineering \\
 \hline
-Hannah Robertson & 2 months & agentic \ac{AI} development; software engineering \\
+Hannah Robertson & 2 months & Agentic \ac{AI} development; software engineering \\
 \hline
-Ed Armstrong & 1 month & domain expert and testing; key collaborator at \ac{PO.DAAC} \\
+Ed Armstrong & 1 month & Domain expert and testing; key collaborator at \ac{PODAAC} \\
 \hline
-Peter Cornillon & unfunded & domain expert and testing; collaborator at University of Rhode Island \\
+Miguel \`{A}ngel Jim\`{e}nez & 2 months\footnote{Funded by \ac{OPeNDAP}} & Agentic \ac{AI} development, domain expert and testing; collaborator at \acs{OPeNDAP} \\
 \hline
-Miguel \`{A}ngel Jim\`{e}nez & unfunded & domain expert and testing; collaborator at \acs{OPeNDAP} \\
+Peter Cornillon & unfunded & Domain expert and testing; collaborator at University of Rhode Island \\
 \hline
 \end{tabular}
+\end{minipage}
 \end{center}
 
-\section{Budget Summary}
 
+\section{Budget table}
+\label{app-budget}
 \begin{center}
+%
 \begin{tabular}{|l|l|l|l|l|}
+
 \hline
 Who & Hourly rate & Months & Cost \\
 \hline
@@ -367,30 +411,6 @@ Total &  &  & \$186,785 \\
 \hline
 \end{tabular}
 \end{center}
-
-\noindent \textbf{Indirect costs} There are no indirect costs added to the
-budget since payment is through the existing \ac{ESDIS} contract
-(EED3\footnote{NASA Earth Observing System Data and Information System Evolution and
-Development-3} for \acs{OPeNDAP}).\\
-\textbf{Hardware procurement} No hardware procurement is requested; existing
-infrastructure will be utilized.\\
-\textbf{Travel} Travel is excluded from the budget.\\
-\textbf{Other direct costs} Other direct costs include cloud compute resources
-for AI model training and inference, estimated at \$10,000 over the project
-duration. This estimate is based on OpenAI model costs, LanChain usage and AWS
-computer for testing.\\
-\textbf{Personnel} Personnel costs are based on the estimated hours and hourly
-rates for the project team members, as detailed in the budget table above. The
-total personnel cost is \$176,785. {\em James Gallagher} will lead the project
-Hyrax/\acs{OPeNDAP} architecture, Virtual Directory interface, agentic AI development
-and software engineering. {\em Hannah Robertson} contribute to agentic AI
-development and software engineering. {\em Ed Armstrong} will provide
-\ac{DAAC}/domain validation, \ac{PO.DAAC} operational feedback, representative
-collection selection and testing support, while {\em Peter Cornillon} and {\em
-Miguel Ángel Jiménez}  will serve as unfunded collaborators providing additional
-collection selection, domain expertise and testing support.
-
-\pagebreak
 
 \bibliography{references}
 \input{acronyms.tex}
