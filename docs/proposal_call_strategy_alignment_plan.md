@@ -15,6 +15,18 @@ I did not read `docs/study_phase_notes_jhrg.txt`.
 
 ## Work Log
 
+### 2026-06-09 16:57 MDT
+
+Prompt: "Rewrite the Approach sections in @main.tex using guidence from [proposal_call_strategy_alignment_plan.md](docs/proposal_call_strategy_alignment_plan.md) . Insert the new text into the [proposal_call_strategy_alignment_plan.md](docs/proposal_call_strategy_alignment_plan.md) document, not [main.tex](main.tex)"
+
+Reasoning summary:
+
+- I used the current `Proposed Approach` section in `main.tex` as the structural base so the rewrite preserves the three-part project architecture.
+- I applied the plan guidance by making the architecture explicitly model-agnostic, tool-grounded, provenance-based, and subject to human review before public guidance is exposed.
+- I bounded the scope to selected representative collections, because the current proposal text risks implying full coverage of every OPeNDAP-enabled ESDIS collection.
+- I sharpened each part's acceptance criteria: crawlability and endpoint reachability for Part 1, evidence-linked `usage.md` validation for Part 2, and backward-compatible in-band DAP4 guidance for Part 3.
+- I did not edit `main.tex`; the rewritten section is added below as planning text for review.
+
 ### 2026-06-09 15:28 MDT
 
 Prompt: "Using [proposal_call_strategy_alignment_plan.md](docs/proposal_call_strategy_alignment_plan.md), rewrite the `Deliverables` section of @main.tex. Put the rewritten text in the `proposal_call_strategy_alignment_plan.md document`. However, consult both the text in the that `proposal_call_strategy_alignment_plan.md document` under the `Deliverables` heading (line 221) and the existing text in the @main.tex document. Note that the text in `Approach` in the @main.tex document has not been updated yet."
@@ -199,6 +211,144 @@ Plan:
 - Define acceptance criteria: an autonomous client can locate guidance in-band, choose the correct variables/conventions, and issue a valid chunk-aware subset request in representative workflows.
 - Shorten the listing or convert it to a compact worked example if page count is tight.
 - Clarify what was live-tested at URI and what is proposed for EDC.
+
+### New Proposed Approach - THIS IS AI's TAKE ON A REWRITE. NOT YET USED
+
+\section{Proposed Approach}
+\label{section-2}
+
+This project extends Hyrax in the \ac{EDC} with a three-part, tool-grounded
+\ac{AI} workflow that improves discovery, metadata quality, and autonomous data
+access without replacing existing operational services. We do not propose to
+train a new model. Instead, we will use model/API inference inside a
+framework-portable workflow that coordinates deterministic calls to \ac{CMR},
+\acs{OPeNDAP}/Hyrax, \ac{DAP4}, and \ac{DMR++} inspection utilities.
+LangChain~\cite{Chase_LangChain_2022} or a lightweight internal workflow runner
+may be used where useful, but the core design will keep model-specific logic
+behind stable interfaces.
+
+In this architecture, the language model guides inspection, compares evidence,
+and drafts collection-level guidance. The factual claims are grounded in direct
+service responses, sampled data values, and programmatic checks of units,
+coordinates, ranges, fill values, chunk structure, and cross-granule
+consistency. Each generated claim will carry provenance, confidence, and review
+status. Guidance will not be exposed as approved operational guidance until it
+has passed validation and expert review. The prototype software, schemas,
+workflow configuration, validation scripts, and sample artifacts will be made
+available as open-science outputs unless restricted by \ac{NASA} policy.
+
+The work is scoped to selected representative collections and granules chosen
+with \ac{ESDIS} and \ac{DAAC} partners. The three subsections below describe how
+the project first makes those collections crawlable by generic \ac{AI} tools,
+then produces validated collection-level \texttt{usage.md} guidance, and finally
+exposes approved guidance through existing \ac{DAP4} responses so autonomous
+clients can retrieve data correctly and efficiently at the point of use.
+
+\subsection{AI-discoverable and crawlable service interfaces}
+\label{section-2.1}
+
+The first part of the project will provide an \ac{AI}-crawlable, web-friendly
+view of selected \acs{OPeNDAP}-enabled \ac{ESDIS} collections. The goal is for
+generic \ac{AI} tools to discover target collections, traverse the collection
+hierarchy, and reach expected \ac{DAP4} service endpoints without a custom
+\ac{NASA}-only client. This supports the Infrastructure and Access pillars by
+exposing existing services through open machine-readable interfaces rather than
+by building a new portal.
+
+Hyrax already demonstrates this pattern when it serves local data files: its
+directory pages can be traversed by common web and \ac{AI} tools. For the
+\ac{EDC} environment, \acs{OPeNDAP} has developed a Virtual Directory Interface
+that mimics the same Hyrax behavior for cloud-hosted collections. Early in the
+project, we will work with \ac{ESDIS}, \ac{CMR}, and \ac{DAAC} partners to
+confirm the preferred interface path: the existing \acs{OPeNDAP} Virtual
+Directory Interface, the \ac{CMR} virtual directory approach, or a compatible
+hybrid. The decision will be based on deployment approval, compatibility with
+common \ac{AI} tools, implementation cost, reuse by non-\ac{EDC} Hyrax servers,
+and consistency with \ac{CMR} direction.
+
+Success for this part will be measured with reproducible crawl tests. For the
+selected collections, the tests will show that collection landing pages are
+discoverable, hierarchy traversal is stable, expected \ac{DAP4} endpoints are
+reachable, and crawl behavior can be repeated without collection-specific
+adaptation.
+
+\subsection{AI-assisted metadata introspection and validation}
+\label{section-2.2}
+
+The second part of the project will build and deploy an agentic workflow that
+inspects selected \acs{OPeNDAP}-enabled \ac{EDC} collections and drafts one
+collection-level \texttt{usage.md} file for each reviewed collection. We may
+crawl broader coverage when feasible, but the proposal commitment is to
+generate and validate guidance for a representative set selected with
+\ac{ESDIS} and \ac{DAAC} partners.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=.75\linewidth]{Figure3.png}
+    \caption{How agentic \ac{AI} builds usage.md documents for NASA \ac{ESDIS} collections.}
+    \label{fig1:placeholder}
+\end{figure}
+
+For each selected collection, the workflow will query \ac{CMR}, traverse Hyrax,
+inspect \ac{DAP4} structural metadata, sample representative granules through
+\acs{OPeNDAP} using tools such as \ac{PyDAP} or Xarray, inspect \ac{DMR++} access
+structure where available, run deterministic validators, compare evidence
+across granules, and draft collection guidance. The resulting
+\texttt{usage.md} schema will include collection scope, provenance, source
+identifiers, variables, units, coordinates, fill values, valid ranges, temporal
+and spatial bounds, chunking and access guidance, known access issues, evidence
+links, confidence labels, review status, and last-refresh time.
+
+The agent may propose inferences, but every claim must be labeled as stated,
+inferred, uncertain, or unsupported. Unsupported claims will be omitted or
+routed for review rather than published. Generated documents will not
+automatically modify \ac{CMR}; they will surface discrepancies between
+\ac{CMR}, \acs{OPeNDAP}/\ac{DAP4} metadata, \ac{DMR++} access structure, and
+sampled data so \ac{DAAC} or domain experts can decide whether a downstream
+metadata correction is warranted.
+
+This part also adds staleness controls. Each guidance file will include
+versioning, provenance, review status, and timestamps, and the workflow will
+define regeneration triggers when upstream collection metadata, granule
+holdings, or access structure changes. This connects the work to Governance and
+Standards through traceability, review state, and repeatable validation, and to
+Operational Intelligence by treating metadata and access discrepancies as
+collection health signals.
+
+Because \ac{DMR++} exposes chunk structure and related access information
+through the \acs{OPeNDAP} interface, the guidance can also describe retrieval
+strategies that avoid unnecessary reads and align requests with chunked cloud
+objects where possible. That information is useful to autonomous agents and to
+virtual data systems such as {\em VirtualiZarr}, but it remains evidence-linked
+guidance rather than an unreviewed model assertion.
+
+\subsection{Machine-actionable guidance for autonomous data retrieval workflows}
+\label{section-2.3}
+
+The third part of the project will make reviewed guidance available at the
+point of retrieval. Part 2 creates and validates collection-level
+\texttt{usage.md} artifacts; Part 3 exposes the approved guidance through
+existing Hyrax/\ac{DAP4} responses so autonomous clients can retrieve it in-band
+when they request data or metadata. This keeps the solution inside existing
+\acs{OPeNDAP} service patterns and avoids creating another discovery portal.
+
+Only reviewed guidance will be exposed through this mechanism. Raw model output
+will remain separate from approved guidance, and each exposed artifact will
+retain provenance, confidence, review status, and last-refresh information.
+Existing \acs{OPeNDAP} and \ac{DAP4} clients should continue to work without
+change, while agent-aware clients will be able to locate the guidance, interpret
+variables and conventions correctly, and issue valid subset requests that are
+consistent with the collection's units, coordinate orientation, fill-value
+rules, and chunk/access structure.
+
+We will validate this part with representative retrieval workflows. The
+acceptance test is that an autonomous client can locate the in-band guidance,
+select the intended variables and conventions, and issue a correct
+chunk-aware subset request without a separate discovery pass or unsupported
+guessing. The URI feasibility work in Section~\ref{section-1.1} demonstrated
+that agents can ground metadata inferences in \acs{OPeNDAP} evidence; this part
+tests the operational step of carrying reviewed guidance with \ac{EDC} data
+through Hyrax/\ac{DAP4}.
 
 ### Limitations and Challenges - DONE jhrg 6/9/26
 
