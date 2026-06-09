@@ -141,7 +141,6 @@ Current fit:
 
 Plan:
 
-- Remove visible red template prompt text and internal notes.
 - Add one concise architecture sentence: model-agnostic LLM agent plus deterministic tool calls plus evidence schema plus human review before public guidance.
 - Identify the planned orchestration layer only as far as it is true: LangChain, LangGraph, or a lightweight internal workflow runner. If undecided, say the implementation will remain framework-portable.
 - State whether the project trains models. If it does not, replace "model training" language elsewhere with "model/API inference, tool execution, and validation."
