@@ -251,7 +251,7 @@ Plan:
 - Avoid promising "all OPeNDAP-enabled data in ESDIS" unless that scope is defensible within 9 months and the budget.
 - Make open-science availability explicit: code, schemas, sample artifacts, documentation, and validation results should be public unless restricted by NASA policy.
 
-### New Deliverables - THIS IS AI's TAKE ON A REWRITE. NOT USED jhrg 6/9/26
+### New Deliverables - THIS IS AI's TAKE ON A REWRITE. Rewritten and reduced to half the size. jhrg 6/9/26
 
 \section{Deliverables}
 
