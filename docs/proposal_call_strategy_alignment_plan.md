@@ -190,7 +190,7 @@ Plan:
 - Shorten the listing or convert it to a compact worked example if page count is tight.
 - Clarify what was live-tested at URI and what is proposed for EDC.
 
-### Limitations and Challenges
+### Limitations and Challenges - DONE jhrg 6/9/26
 
 Current fit:
 

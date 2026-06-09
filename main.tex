@@ -242,44 +242,64 @@ While Parts 1 and 2 make collections discoverable and queryable by \ac{AI} tools
 \textbf{What the agent does, per collection} Walking the granules of a collection through \acs{OPeNDAP}, the agent (1) confirms that the stated semantic metadata is internally consistent across granules and consistent with the data itself, and (2) accumulates collection-level facts that no single granule record exposes. Each finding is anchored in evidence and graded by confidence, and the agent explicitly refuses to assert anything it cannot defend.
 
 \section{Limitations and Challenges}
-Each of the three parts of this project have risks. The deployment of our
-existing Virtual Directory Interface has been hampered by a different interface
-with overlapping functionality developed by the \ac{CMR} team. If \ac{ESDIS}
-does not approve the deployment of our interface, we will need to reassess if
-the Hyrax service in the \ac{EDC} can be crawled by generic \ac{AI} tools.
-Secondly, We propose to develop an agentic \ac{AI} tool to build the metadata
-documents in part two. This will be a significant undertaking using technology
-that is very new and rapidly changing. Our group will need to adapt traditional
-software engineering to a new kind of system, particularly for this second phase
-because we foresee developing tools/functions using LangChain and/or LangGraph.
-We will need to develop automated tests and \ac{CICD} for the products of those
-development efforts. Lastly, in the final part of the project, documents
-representing the contents of NASA data sets will be accessible to end-users. The
-workflow for this part of the project includes a review of the documents by an
-expert, but the potential for misrepresenting data still exists.
 
-\textbf{NEW TEXT Follows}
+% Each of the three parts of this project have risks. The deployment of our
+% existing Virtual Directory Interface has been hampered by a different interface
+% with overlapping functionality developed by the \ac{CMR} team. If \ac{ESDIS}
+% does not approve the deployment of our interface, we will need to reassess if
+% the Hyrax service in the \ac{EDC} can be crawled by generic \ac{AI} tools.
+% Secondly, We propose to develop an agentic \ac{AI} tool to build the metadata
+% documents in part two. This will be a significant undertaking using technology
+% that is very new and rapidly changing. Our group will need to adapt traditional
+% software engineering to a new kind of system, particularly for this second phase
+% because we foresee developing tools/functions using LangChain and/or LangGraph.
+% We will need to develop automated tests and \ac{CICD} for the products of those
+% development efforts. Lastly, in the final part of the project, documents
+% representing the contents of NASA data sets will be accessible to end-users. The
+% workflow for this part of the project includes a review of the documents by an
+% expert, but the potential for misrepresenting data still exists.
+
+% \textbf{NEW TEXT Follows}
 
 This project has both technological and operations risks. Here we discuss those
-risks along with how we will mitigate them. 
+risks along with their mitigation. 
 
-In the first part of the project, we propose using a Virtual Directory Interface
-developed by \acs{OPeNDAP} that follows the same interface as other
-\acs{OPeNDAP} servers. However, there is another Virtual Directory Interface
-developed by the \ac{CMR} team that has some overlapping functionality. If
-\ac{ESDIS} does not approve the deployment of our interface, it may be more
-complicated to transfer our previous work (described in
-Section~\ref{section-1.1} and~\cite{cornillon-grepdap-2026}) to the \ac{CMR}
-interface. We will mitigate that risk by working closely with \ac{ESDIS} to
-determine which interface is best for the project and then adjusting our work as
-needed to fit the chosen interface. 
+In the first part of the project, we propose using an existing Virtual Directory
+Interface, already developed by \acs{OPeNDAP}, that provides the same interface
+as other \acs{OPeNDAP} servers, but in the cloud environment. If \ac{ESDIS} does
+not approve the deployment of our interface, we will fallback to using a
+different interface developed by the \ac{CMR} team. However, it may be more
+complicated to transfer our previous work ( Section~\ref{section-1.1}) to that
+interface. 
 
-We understand that this project will have greater risk, and different kinds of
-risk, than the software development done for our NASA subcontract. To address
-those risks, we will take advantage of the cohort of teams also
-funded by this call. Specifically, we will seek advice and share solutions to
-problems such as validation methods, security practices, and the transition
-prototype \ac{AI} systems to the \ac{EDC} operational environment.
+Developing an agentic \ac{AI} tool to build metadata documents will be a
+significant undertaking using technology that is very new and rapidly changing.
+We will need to adapt traditional software engineering to a new kind of system,
+because we foresee developing tools/functions using LangChain and
+LangGraph.~\cite{Chase_LangChain_2022} We will need to develop automated tests
+and \ac{CICD} for the products of those development efforts. To address those
+risks, we will take advantage of the cohort of teams also funded by this call.
+Specifically, we will seek advice and share solutions to problems such as
+validation methods, security practices, and the transition of prototype \ac{AI}
+systems to the \ac{EDC} operational environment.
+
+Making the generated metadata documents accessible to end-users introduces the
+risk of misrepresenting \ac{NASA}data. To mitigate this risk, we will have an
+expert review the documents before they are made accessible to end-users. We
+will use controls like those built into the proof of concept system described in
+Section~\ref{section-1.1} to help flag content most in need of review. Where
+content is not directly linked to evidence, or where the evidence is weak, we
+will flag that as most in need of review by an expert. This will help focus the
+scare resource of expert review where it is most needed.
+
+Because the project involves developing new capabilities and making them
+accessible to end-users, we will need to address security risks like prompt
+injection, malicious or malformed agent-readable pages (e.g., an agent might
+consult web pages), and stale guidance. Using LangChain and coding agents
+ourselves provides the best way to mitigate these risks and control how inferred
+parameters are passed into the tools that make up the agents. This is simple
+input sanitization and is common in agentic systems, but still must be
+addressed. 
 
 \section{Deliverables}
 We will produce three deliverables:
