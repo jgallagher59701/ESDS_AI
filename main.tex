@@ -287,28 +287,30 @@ tooling, validation, and risk controls.
 \section{Proposed Approach}
 \label{section-2}
 
-This project extends Hyrax in the \ac{EDC} to improve discovery, metadata quality, and autonomous data
-access without replacing existing operational services. We will use model/API inference inside a
-tool-based agentic workflow that coordinates deterministic calls to \ac{CMR},
-\acs{OPeNDAP}/Hyrax, and \ac{DMR++} documents\footnote{In previous work under
-\ac{EED3} we developed a service extension to Hyrax for \ac{DMR++} retrieval.}.
-The design will keep model-specific logic behind stable interfaces.
+This project extends Hyrax in the \ac{EDC} to improve discovery, metadata
+quality, and autonomous data access without replacing existing operational
+services. We will use model/API inference inside a tool-based agentic workflow
+that coordinates deterministic calls to \ac{CMR}, \acs{OPeNDAP}/Hyrax, and
+\ac{DMR++} documents\footnote{In previous work for \ac{EDDIS} we developed a
+service extension to Hyrax for \ac{DMR++} retrieval.}. The design will keep
+model-specific logic behind stable interfaces.
 
 In this architecture, the language model guides inspection, compares evidence,
-and drafts collection-level metadata documents. The factual claims are grounded in direct
-service responses, sampled data values, and programmatic checks of units,
-coordinates, ranges, fill values, chunk structure, and cross-granule
+and drafts collection-level metadata documents. The factual claims are grounded
+in direct service responses, sampled data values, and programmatic checks of
+units, coordinates, ranges, fill values, chunk structure, and cross-granule
 consistency. Each generated claim will carry provenance, confidence, and review
-status. The software, schemas,
-workflow configuration, validation scripts, and sample artifacts will be made
-available as open-science outputs unless restricted by \ac{NASA} policy.
+status. The software, schemas, workflow configuration, validation scripts, and
+sample artifacts will be made available as open-science outputs unless
+restricted by \ac{NASA} policy.
 
 The work is scoped to selected representative collections and granules chosen
 with \ac{ESDIS} and \ac{DAAC} partners. The three subsections below describe how
 the project first makes those collections crawlable by generic \ac{AI} tools,
-then produces validated collection-level \texttt{usage.md} metadata documents, and finally
-exposes approved \texttt{usage.md} documents through existing \ac{DAP4} responses so autonomous
-clients can retrieve data correctly and efficiently at the point of use.
+then produces validated collection-level \texttt{usage.md} metadata documents,
+and finally exposes approved \texttt{usage.md} documents through existing
+\ac{DAP4} responses so autonomous clients can retrieve data correctly and
+efficiently at the point of use.
 
 \subsection{AI-discoverable and crawlable service interfaces}
 \label{section-2.1}
@@ -339,7 +341,8 @@ generate and validate guidance for a representative set selected with
 \begin{figure}
     \centering
     \includegraphics[width=.75\linewidth]{Figure3.png}
-    \caption{How agentic \ac{AI} builds \texttt{usage.md} documents for NASA \ac{ESDIS} collections.}
+    \caption{How agentic \ac{AI} builds \texttt{usage.md} documents for NASA
+    \ac{ESDIS} collections.}
     \label{fig1:placeholder}
 \end{figure}
 
