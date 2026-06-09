@@ -57,7 +57,7 @@ Use these as constraints when revising the proposal.
 
 ## Section-by-Section Plan
 
-### Cover / Proposal Metadata
+### Cover / Proposal Metadata DONE jhrg 6/8/26
 
 Current fit:
 
