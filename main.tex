@@ -147,142 +147,258 @@ Section~\ref{section-2} therefore moves from this illustrative example to an
 autonomous agentic system that uses the same evidence discipline with explicit
 tooling, validation, and risk controls.
 
+% \section{Proposed Approach}
+% \label{section-2}
+
+% This project extends Hyrax in the \ac{EDC} with a three-part \ac{AI}-assisted
+% workflow that improves discovery, metadata quality, and autonomous data access
+% without replacing existing operational services. We will use an agentic workflow
+% architecture, implemented with interchangeable large language models and
+% tool-based orchestration such as LangChain~\cite{Chase_LangChain_2022} where
+% appropriate, to coordinate deterministic calls to \ac{CMR}, \acs{OPeNDAP}/Hyrax,
+% and \ac{DMR++} inspection utilities. In this design, the language model is used
+% to guide inspection, compare evidence, and draft collection-level guidance,
+% while factual claims are grounded in direct service responses and programmatic
+% checks of units, coordinates, ranges, fill values, chunk structure, and
+% cross-granule consistency. The three subsections below describe how this
+% architecture first makes collections crawlable by generic \ac{AI} tools, then
+% produces per-collection \texttt{usage.md} guidance from validated evidence, and
+% finally embeds approved guidance directly in \ac{DAP4} responses so autonomous
+% clients can retrieve data correctly and efficiently at the point of use.
+
+% \textbf{Note}: In the remainder of this document we limit our work to a selected
+% set of collections and granules. Currently, \ac{OPeNDAP} in teh ac{EDC} serves
+% approximately 2,000 collections. We will work with \ac{ESDIS} and \ac{DAAC}
+% partners to select a subset of those collections for this project.
+
+% \subsection{AI-discoverable and crawlable service interfaces}
+% \label{section-2.1}
+
+% In the first part of this project, we will use a simple Virtual Directory
+% system that will enable \acs{OPeNDAP} Hyrax in the \ac{ESDIS} to be crawled by
+% commonly used \ac{AI} tools. This project will use a virtual directory subsystem
+% for its own work in part two of this project and end users will use it for part
+% three of the project. 
+
+% We have demonstrated (see Section~\ref{section-1.1}) that when Hyrax is being
+% used to serve local data files, it is easily crawled by generic \ac{AI} tools
+% (e.g., OpenAI Codex) using its built-in directory pages. In the existing Hyrax
+% code base we already have a Virtual Directory Interface for the \ac{EDC}
+% environment that mimics the interface the Hyrax server provides when used with
+% local files. We will use this interface for the project, and thus make the
+% collections it serves crawlable by generic \ac{AI} tools.
+
+% %part 2
+% \subsection{AI-assisted metadata introspection and validation}
+% \label{section-2.2}
+% In part two of the project, we propose to build and deploy an Agentic \ac{AI} to
+% crawl collections that are enabled by \acs{OPeNDAP} in the \ac{EDC}. The output of
+% this component will be one Markdown file per-collection produced by the agentic
+% \ac{AI} (see Figure~\ref{fig1:placeholder}). Each of these files will contain
+% usage metadata common to all granules in the collection, based on both \ac{CMR}
+% metadata and data and metadata extracted from direct access to the granules made
+% using the \acs{OPeNDAP} service. 
+
+% \begin{figure}
+%     \centering
+%     \includegraphics[width=.75\linewidth]{Figure3.png}
+%     \caption{How agentic \ac{AI} builds usage.md documents for NASA \ac{ESDIS} collections.}
+%     \label{fig1:placeholder}
+% \end{figure}
+
+% As soon as these metadata documents are written, they can be analyzed to see if
+% they disagree with any of the information in \ac{CMR}. In this way, part two of
+% the project accomplishes two goals. It provides a way to perform curation on
+% legacy collections that have already undergone ingest, and it, for any
+% discrepancies found, can bring in a data expert to determine how to address the
+% differences. Thus, our project combines curation and management of the risk that
+% the agentic \ac{AI} tool `hallucinates' and the result in unwittingly used.
+
+% Because we have access to information in the \ac{DMR++} through the
+% \acs{OPeNDAP} interface, the metadata documents this \ac{AI} tool builds can
+% also include information about optimal retrieval strategies based on the sizes
+% and locations of `chunks' within the granule. We can also use the \ac{AI} tool
+% to investigate chunk sizing and compression consistency of the granules in a
+% collection. The tool can check for problems that may be specific to a given data
+% set and offer ways to compensate for those problems. This metadata is accessible
+% for such a wide range of collections nowhere else in the \ac{ESDIS} system. This
+% could be used by virtual data systems like {\em VirtualiZarr} to improve their
+% operation.
+
+% \subsection{Machine-actionable guidance for autonomous data retrieval workflows}
+% \label{section-2.3}
+
+% While Parts 1 and 2 make collections discoverable and queryable by \ac{AI}
+% tools, the value of the curated guidance is only fully realized if agents
+% receive it at the point of retrieval. Part 3 therefore embeds the collected
+% metadata in the data and metadata responses of the \acs{OPeNDAP} service. The
+% {\em usage.md} file becomes a payload for the \ac{DAP4} responses. These
+% verified, evidence-tagged facts are written to a per-collection `usage.md` and
+% embedded in the collection's \ac{DAP4} responses. A downstream autonomous agent
+% then consumes it in-band, at the moment of retrieval, and issues a correct,
+% chunk-aligned subsetting request on the first attempt—without a separate
+% discovery round-trip and without guessing at units, coordinate orientation, or
+% fill conventions. This is the difference Part 3 delivers: the curated guidance
+% from Part 2 travels with the data, turning queries that agents already make into
+% queries that succeed.
+
+% \section{Limitations and Challenges}
+
+% This project has both technological and operations risks. Here we discuss those
+% risks along with their mitigation. 
+
+% In the first part of the project, we propose using an existing Virtual Directory
+% Interface, already developed by \acs{OPeNDAP}, that provides the same interface
+% as other \acs{OPeNDAP} servers, but in the cloud environment. If \ac{ESDIS} does
+% not approve the deployment of our interface, we will fallback to using a
+% different interface developed by the \ac{CMR} team.\cite{cmrvdi} However, it may
+% be more complicated to transfer our previous work (Section~\ref{section-1.1}) to
+% that interface. 
+
+% Developing an agentic \ac{AI} tool to build metadata documents will be a
+% significant undertaking using technology that is very new and rapidly changing.
+% We will need to adapt traditional software engineering to a new kind of system,
+% because we foresee developing tools/functions using LangChain and
+% LangGraph.\cite{Chase_LangChain_2022} We will need to develop automated tests
+% and \ac{CICD} for the products of those development efforts. To address those
+% risks, we will take advantage of the cohort of teams also funded by this call.
+% Specifically, we will seek advice and share solutions to problems such as
+% validation methods, security practices, and the transition of prototype \ac{AI}
+% systems to the \ac{EDC} operational environment.
+
+% Making the generated metadata documents accessible to end-users introduces the
+% risk of misrepresenting \ac{NASA}data. To mitigate this risk, we will have an
+% expert review the documents before they are made accessible to end-users. We
+% will use controls like those built into the proof of concept system described in
+% Section~\ref{section-1.1} to help flag content most in need of review. Where
+% content is not directly linked to evidence, or where the evidence is weak, we
+% will flag that as most in need of review by an expert. This will help focus the
+% scare resource of expert review where it is most needed.
+
+% Because the project involves developing new capabilities and making them
+% accessible to end-users, we will need to address security risks like prompt
+% injection, malicious or malformed agent-readable pages (e.g., an agent might
+% consult web pages), and stale guidance. Using LangChain and coding agents
+% ourselves provides the best way to mitigate these risks and control how inferred
+% parameters are passed into the tools that make up the agents. This is simple
+% input sanitization and is common in agentic systems, but still must be
+% addressed. 
+
 \section{Proposed Approach}
 \label{section-2}
 
-This project extends Hyrax in the \ac{EDC} with a three-part \ac{AI}-assisted
-workflow that improves discovery, metadata quality, and autonomous data access
-without replacing existing operational services. We will use an agentic workflow
-architecture, implemented with interchangeable large language models and
-tool-based orchestration such as LangChain~\cite{Chase_LangChain_2022} where
-appropriate, to coordinate deterministic calls to \ac{CMR}, \acs{OPeNDAP}/Hyrax,
-and \ac{DMR++} inspection utilities. In this design, the language model is used
-to guide inspection, compare evidence, and draft collection-level guidance,
-while factual claims are grounded in direct service responses and programmatic
-checks of units, coordinates, ranges, fill values, chunk structure, and
-cross-granule consistency. The three subsections below describe how this
-architecture first makes collections crawlable by generic \ac{AI} tools, then
-produces per-collection \texttt{usage.md} guidance from validated evidence, and
-finally embeds approved guidance directly in \ac{DAP4} responses so autonomous
-clients can retrieve data correctly and efficiently at the point of use.
+This project extends Hyrax in the \ac{EDC} to improve discovery, metadata quality, and autonomous data
+access without replacing existing operational services. We will use model/API inference inside a
+tool-based agentic workflow that coordinates deterministic calls to \ac{CMR},
+\acs{OPeNDAP}/Hyrax, and \ac{DMR++} documents\footnote{In previous work under
+\ac{EED3} we developed a service extension to Hyrax for \ac{DMR++} retrieval.}.
+The design will keep model-specific logic behind stable interfaces.
 
-\textbf{Note}: In the remainder of this document we limit our work to a selected
-set of collections and granules. Currently, \ac{OPeNDAP} in teh ac{EDC} serves
-approximately 2,000 collections. We will work with \ac{ESDIS} and \ac{DAAC}
-partners to select a subset of those collections for this project.
+In this architecture, the language model guides inspection, compares evidence,
+and drafts collection-level metadata documents. The factual claims are grounded in direct
+service responses, sampled data values, and programmatic checks of units,
+coordinates, ranges, fill values, chunk structure, and cross-granule
+consistency. Each generated claim will carry provenance, confidence, and review
+status. The software, schemas,
+workflow configuration, validation scripts, and sample artifacts will be made
+available as open-science outputs unless restricted by \ac{NASA} policy.
+
+The work is scoped to selected representative collections and granules chosen
+with \ac{ESDIS} and \ac{DAAC} partners. The three subsections below describe how
+the project first makes those collections crawlable by generic \ac{AI} tools,
+then produces validated collection-level \texttt{usage.md} metadata documents, and finally
+exposes approved \texttt{usage.md} documents through existing \ac{DAP4} responses so autonomous
+clients can retrieve data correctly and efficiently at the point of use.
 
 \subsection{AI-discoverable and crawlable service interfaces}
 \label{section-2.1}
 
-In the first part of this project, we will use a simple Virtual Directory
-system that will enable \acs{OPeNDAP} Hyrax in the \ac{ESDIS} to be crawled by
-commonly used \ac{AI} tools. This project will use a virtual directory subsystem
-for its own work in part two of this project and end users will use it for part
-three of the project. 
+The first part of the project will provide an \ac{AI}-crawlable, web-friendly
+view of selected \acs{OPeNDAP}-enabled \ac{ESDIS} collections. The goal is for
+generic \ac{AI} tools to discover target collections, traverse the collection
+hierarchy, and access data and metadata from a collection generic tools. This
+supports the Infrastructure and Access pillars by exposing existing services
+through open machine-readable interfaces rather than by building a new portal.
 
-We have demonstrated (see Section~\ref{section-1.1}) that when Hyrax is being
-used to serve local data files, it is easily crawled by generic \ac{AI} tools
-(e.g., OpenAI Codex) using its built-in directory pages. In the existing Hyrax
-code base we already have a Virtual Directory Interface for the \ac{EDC}
-environment that mimics the interface the Hyrax server provides when used with
-local files. We will use this interface for the project, and thus make the
-collections it serves crawlable by generic \ac{AI} tools.
+Hyrax already demonstrates this pattern when it serves local data files: its
+directory pages can be traversed by common web and \ac{AI} tools. For the
+\ac{EDC} environment, \acs{OPeNDAP} has developed a Virtual Directory Interface
+that mimics the same Hyrax behavior for cloud-hosted collections. Early in the
+project, we will work with \ac{ESDIS}, and \ac{DAAC} to deploy this interface.
 
-%part 2
 \subsection{AI-assisted metadata introspection and validation}
 \label{section-2.2}
-In part two of the project, we propose to build and deploy an Agentic \ac{AI} to
-crawl collections that are enabled by \acs{OPeNDAP} in the \ac{EDC}. The output of
-this component will be one Markdown file per-collection produced by the agentic
-\ac{AI} (see Figure~\ref{fig1:placeholder}). Each of these files will contain
-usage metadata common to all granules in the collection, based on both \ac{CMR}
-metadata and data and metadata extracted from direct access to the granules made
-using the \acs{OPeNDAP} service. 
+
+The second part of the project will build and deploy an agentic workflow that
+inspects \acs{OPeNDAP}-enabled \ac{EDC} collections and drafts one
+collection-level \texttt{usage.md} file for each selected collection. We may
+crawl broader coverage when feasible, but the proposal commitment is to
+generate and validate guidance for a representative set selected with
+\ac{ESDIS} and \ac{DAAC} partners.
 
 \begin{figure}
     \centering
     \includegraphics[width=.75\linewidth]{Figure3.png}
-    \caption{How agentic \ac{AI} builds usage.md documents for NASA \ac{ESDIS} collections.}
+    \caption{How agentic \ac{AI} builds \texttt{usage.md} documents for NASA \ac{ESDIS} collections.}
     \label{fig1:placeholder}
 \end{figure}
 
-As soon as these metadata documents are written, they can be analyzed to see if
-they disagree with any of the information in \ac{CMR}. In this way, part two of
-the project accomplishes two goals. It provides a way to perform curation on
-legacy collections that have already undergone ingest, and it, for any
-discrepancies found, can bring in a data expert to determine how to address the
-differences. Thus, our project combines curation and management of the risk that
-the agentic \ac{AI} tool `hallucinates' and the result in unwittingly used.
+For each selected collection, the workflow will query \ac{CMR}, traverse Hyrax,
+inspect \ac{DAP4} structural metadata, sample representative granules through
+\acs{OPeNDAP} using tools such as \ac{PyDAP}, inspect \ac{DMR++} access
+structure where available, run deterministic validators, compare evidence
+across granules, and draft collection \texttt{usage.md} documents. The resulting
+\texttt{usage.md} schema will include collection scope, provenance, source
+identifiers, variables, units, coordinates, fill values, valid ranges, temporal
+and spatial bounds, chunking and access guidance, known access issues, evidence
+links, confidence labels, review status, and last-refresh time.\footnote{For
+some collections, not all of this information may be relevant.}
 
-Because we have access to information in the \ac{DMR++} through the
-\acs{OPeNDAP} interface, the metadata documents this \ac{AI} tool builds can
-also include information about optimal retrieval strategies based on the sizes
-and locations of `chunks' within the granule. We can also use the \ac{AI} tool
-to investigate chunk sizing and compression consistency of the granules in a
-collection. The tool can check for problems that may be specific to a given data
-set and offer ways to compensate for those problems. This metadata is accessible
-for such a wide range of collections nowhere else in the \ac{ESDIS} system. This
-could be used by virtual data systems like {\em VirtualiZarr} to improve their
-operation.
+The agent may propose inferences, but every claim must be labeled as {\em
+stated}, {\em inferred}, {\em uncertain}, or {\em unsupported}. Unsupported
+claims will be omitted or routed for review rather than published. At no time
+with this system modify any \ac{EDC} artifact (e.g., \ac{CMR} record); only the
+\texttt{usage.md} documents will be created/edited by this system.
+
+This part also adds staleness controls. Each \texttt{usage.md} document will include
+versioning, provenance, review status, and timestamps. While out of scope for
+this project, these features provide a path to future expansion to include support for
+Governance and Standards. We include them here because they simplify the review
+of the \texttt{usage.md} documents by a human expert.
+
+Because \ac{DMR++} exposes chunk structure and related access information
+through the \acs{OPeNDAP} interface, the guidance can also describe retrieval
+strategies that avoid unnecessary reads and align requests with chunked cloud
+objects where possible. That information is useful to autonomous agents and to
+virtual data systems such as {\em VirtualiZarr}, but it remains evidence-linked
+guidance.
 
 \subsection{Machine-actionable guidance for autonomous data retrieval workflows}
 \label{section-2.3}
 
-While Parts 1 and 2 make collections discoverable and queryable by \ac{AI}
-tools, the value of the curated guidance is only fully realized if agents
-receive it at the point of retrieval. Part 3 therefore embeds the collected
-metadata in the data and metadata responses of the \acs{OPeNDAP} service. The
-{\em usage.md} file becomes a payload for the \ac{DAP4} responses. These
-verified, evidence-tagged facts are written to a per-collection `usage.md` and
-embedded in the collection's \ac{DAP4} responses. A downstream autonomous agent
-then consumes it in-band, at the moment of retrieval, and issues a correct,
-chunk-aligned subsetting request on the first attempt—without a separate
-discovery round-trip and without guessing at units, coordinate orientation, or
-fill conventions. This is the difference Part 3 delivers: the curated guidance
-from Part 2 travels with the data, turning queries that agents already make into
-queries that succeed.
+The third part of the project will make eligible \texttt{usage.md} documents
+available when users access data using \ac{OPeNDAP}. Part 2 creates and validates
+collection-level \texttt{usage.md} artifacts; Part 3 exposes the guidance and its
+review status through existing Hyrax/\ac{DAP4} responses so clients can retrieve
+it in-band when they request data or metadata. This keeps the solution inside existing
+\acs{OPeNDAP} service patterns and avoids creating another discovery portal.
 
-\section{Limitations and Challenges}
+Reviewed \texttt{usage.md} documents will be exposed through this mechanism, and
+unreviewed documents may also be exposed when the agentic workflow and
+deterministic checks identify no questionable claims, unresolved discrepancies,
+unsupported inferences, or validation failures. Documents that contain such
+flags will not be included in the \ac{OPeNDAP} responses and instead flagged for
+expert review.
 
-This project has both technological and operations risks. Here we discuss those
-risks along with their mitigation. 
-
-In the first part of the project, we propose using an existing Virtual Directory
-Interface, already developed by \acs{OPeNDAP}, that provides the same interface
-as other \acs{OPeNDAP} servers, but in the cloud environment. If \ac{ESDIS} does
-not approve the deployment of our interface, we will fallback to using a
-different interface developed by the \ac{CMR} team.\cite{cmrvdi} However, it may
-be more complicated to transfer our previous work (Section~\ref{section-1.1}) to
-that interface. 
-
-Developing an agentic \ac{AI} tool to build metadata documents will be a
-significant undertaking using technology that is very new and rapidly changing.
-We will need to adapt traditional software engineering to a new kind of system,
-because we foresee developing tools/functions using LangChain and
-LangGraph.\cite{Chase_LangChain_2022} We will need to develop automated tests
-and \ac{CICD} for the products of those development efforts. To address those
-risks, we will take advantage of the cohort of teams also funded by this call.
-Specifically, we will seek advice and share solutions to problems such as
-validation methods, security practices, and the transition of prototype \ac{AI}
-systems to the \ac{EDC} operational environment.
-
-Making the generated metadata documents accessible to end-users introduces the
-risk of misrepresenting \ac{NASA}data. To mitigate this risk, we will have an
-expert review the documents before they are made accessible to end-users. We
-will use controls like those built into the proof of concept system described in
-Section~\ref{section-1.1} to help flag content most in need of review. Where
-content is not directly linked to evidence, or where the evidence is weak, we
-will flag that as most in need of review by an expert. This will help focus the
-scare resource of expert review where it is most needed.
-
-Because the project involves developing new capabilities and making them
-accessible to end-users, we will need to address security risks like prompt
-injection, malicious or malformed agent-readable pages (e.g., an agent might
-consult web pages), and stale guidance. Using LangChain and coding agents
-ourselves provides the best way to mitigate these risks and control how inferred
-parameters are passed into the tools that make up the agents. This is simple
-input sanitization and is common in agentic systems, but still must be
-addressed. 
+Every \texttt{usage.md} artifact, whether exposed or withheld, will
+retain provenance, confidence, last-refresh information, and an explicit review
+status. Exposed documents will be labeled as reviewed or unreviewed with no
+issues flagged; documents withheld for review will be labeled as
+review required. Existing \acs{OPeNDAP} and \ac{DAP4} clients should continue to
+work without change, while agent-aware clients will be able to locate the
+guidance, interpret variables and conventions correctly, and issue valid subset
+requests that are consistent with the collection's units, coordinate
+orientation, fill-value rules, and chunk/access structure.
 
 \section{Deliverables}
 At the end of the project, three concrete outputs will exist that do not exist
