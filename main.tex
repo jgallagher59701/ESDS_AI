@@ -284,33 +284,95 @@ input sanitization and is common in agentic systems, but still must be
 addressed. 
 
 \section{Deliverables}
-We will produce three deliverables:
-\begin{enumerate}
-    \item A Virtual Directory Interface that enables crawling
-    \acs{OPeNDAP}-enabled data sets in \ac{ESDIS} using generic \ac{AI} tools.
-    This will follow the existing interface provided by Hyrax and other
-    \acs{OPeNDAP} servers. This will use an existing prototype that has already
-    run in the \ac{EDC} system. This will be integrated into the Hyrax software
-    deployed in \ac{ESDIS}. This web-friendly user interface is already well
-    documented. The software is already in an open GitHub repository managed by
-    \acs{OPeNDAP} (as is all the Hyrax software).
+We will produce the following artifacts that satisfy the required deliverables
+while preserving provenance, review status, and a clear path to \ac{EDC}
+operations. The deliverables are: 
 
-    \item An agentic \ac{AI} tool that can crawl \acs{OPeNDAP}-enabled data in
-    \ac{ESDIS} and build comprehensive metadata documents written in markdown
-    format. Using markdown streamlines use of the documents by generic \ac{AI}
-    tools. This tool will be used internally to build and maintain these
-    documents. The use of this software and its design will be documented. The
-    software will be hosted on GitHub in a public repository maintained by
-    \acs{OPeNDAP}.
+\begin{enumerate} 
+\item \textbf{An \ac{AI}-crawlable Hyrax/\acs{OPeNDAP} interface.} We will
+deliver a working Virtual Directory Interface for representative
+\acs{OPeNDAP}-enabled \ac{ESDIS} collections, using either the existing
+\acs{OPeNDAP} Hyrax interface or the \ac{CMR} virtual directory path selected
+with \ac{ESDIS} guidance. The acceptance evidence will show that generic \ac{AI}
+tools can discover target collections, traverse the collection structure, and
+reach the expected \ac{DAP4} service endpoints without collection-specific
+adaptation. If production deployment approval is outside the project's control
+during the award period, we will deliver the working Hyrax prototype and a
+documented integration path for \ac{EDC}.
 
-    \item A collection of comprehensive metadata documents that users can access
-    using the \acs{OPeNDAP} service in \ac{ESDIS}. This will be open to the
-    public. We will provide documentation for end-users that will guide them
-    through common use cases. This documentation will be written in Markdown or
-    AsciiDoc and provide just as we have provided documentation on Hyrax and
-    \ac{DMR++} in the past. In addition, we will provide tutorials with code for
-    end-users, similar to the other tutorials we have written for NASA data
+\item \textbf{Agentic metadata introspection and validation software.} We will
+deliver open-source software that crawls selected \acs{OPeNDAP}-enabled
+collections, queries \ac{CMR}, inspects \acs{OPeNDAP}/\ac{DAP4} responses,
+samples representative granules using \acs{OPeNDAP}, examines \ac{DMR++} access
+structure where available, and drafts evidence-linked collection guidance. The
+repository will include tool-call definitions, schemas, prompts or workflow
+configuration, validation scripts, regression tests, and developer
+documentation. The acceptance evidence will show that the workflow distinguishes
+stated facts, defensible inferences, uncertain claims, and unsupported claims.
+
+\item \textbf{Reviewed collection-level \texttt{usage.md} artifacts.} For a
+named or representative set of collections selected with \ac{ESDIS} and
+\ac{DAAC} partners, we will deliver reviewed Markdown guidance files that
+summarize collection scope, provenance, source identifiers, variables, units,
+coordinates, fill values, value ranges, temporal and spatial bounds, chunking
+and access guidance, known access issues, evidence links, confidence labels,
+review status, and last-refresh time. Generated guidance will not be treated as
+authoritative until it has passed validation and expert review. Public sample
+artifacts and validation results will be made available unless restricted by
+\ac{NASA} policy.
+
+\item \textbf{Prototype exposure of approved guidance through Hyrax/\ac{DAP4}.}
+We will deliver a prototype or integration path that makes reviewed guidance
+available through existing Hyrax/\ac{DAP4} responses so autonomous clients can
+use the guidance at the point of retrieval. Existing \acs{OPeNDAP} clients
+should continue to work without change, while agent-aware clients will be able
+to locate the approved guidance and use it to issue valid, chunk-aware subset
+requests in representative workflows.
+
+\item \textbf{Open-science repository and documentation.} We will provide a
+public GitHub repository artifact containing the prototype software, schemas,
+sample \texttt{usage.md} files, validation scripts, test cases, documentation,
+and user-facing examples. This artifact will document external model, framework,
+platform, licensing, and data-rights assumptions needed to reproduce or extend
+the work.
+
+\item \textbf{Final report, presentation, and technology demonstration.} At the
+end of the project, we will provide a brief final report of no more than ten
+pages describing what was built, how it was validated, what was learned,
+remaining risks, and the recommended path to operations. We will also provide a
+presentation and technology demonstration for the Earth Data Officer and the
+leadership team, showing the crawlable interface, the metadata-introspection
+workflow, reviewed guidance artifacts, and the retrieval workflow enabled by
+in-band guidance.
 \end{enumerate}
+
+% We will produce three deliverables:
+% \begin{enumerate}
+%     \item A Virtual Directory Interface that enables crawling
+%     \acs{OPeNDAP}-enabled data sets in \ac{ESDIS} using generic \ac{AI} tools.
+%     This will follow the existing interface provided by Hyrax and other
+%     \acs{OPeNDAP} servers. This will use an existing prototype that has already
+%     run in the \ac{EDC} system. This will be integrated into the Hyrax software
+%     deployed in \ac{ESDIS}. This web-friendly user interface is already well
+%     documented. The software is already in an open GitHub repository managed by
+%     \acs{OPeNDAP} (as is all the Hyrax software).
+
+%     \item An agentic \ac{AI} tool that can crawl \acs{OPeNDAP}-enabled data in
+%     \ac{ESDIS} and build comprehensive metadata documents written in markdown
+%     format. Using markdown streamlines use of the documents by generic \ac{AI}
+%     tools. This tool will be used internally to build and maintain these
+%     documents. The use of this software and its design will be documented. The
+%     software will be hosted on GitHub in a public repository maintained by
+%     \acs{OPeNDAP}.
+
+%     \item A collection of comprehensive metadata documents that users can access
+%     using the \acs{OPeNDAP} service in \ac{ESDIS}. This will be open to the
+%     public. We will provide documentation for end-users that will guide them
+%     through common use cases. This documentation will be written in Markdown or
+%     AsciiDoc and provide just as we have provided documentation on Hyrax and
+%     \ac{DMR++} in the past. In addition, we will provide tutorials with code for
+%     end-users, similar to the other tutorials we have written for NASA data
+% \end{enumerate}
 
 \section{Validations and Path to Operations}
 Our validation approach follows from the three deliverables. For Part 1, we will validate the Virtual Directory Interface by confirming that generic \ac{AI} clients can discover and traverse representative \acs{OPeNDAP}-enabled collections in \ac{ESDIS} without collection-specific adaptation. Success will be measured by whether the interface exposes the expected collection structure and whether autonomous crawlers can reach the same collection endpoints that expert users reach.

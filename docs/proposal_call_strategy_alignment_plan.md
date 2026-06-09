@@ -15,6 +15,17 @@ I did not read `docs/study_phase_notes_jhrg.txt`.
 
 ## Work Log
 
+### 2026-06-09 15:28 MDT
+
+Prompt: "Using [proposal_call_strategy_alignment_plan.md](docs/proposal_call_strategy_alignment_plan.md), rewrite the `Deliverables` section of @main.tex. Put the rewritten text in the `proposal_call_strategy_alignment_plan.md document`. However, consult both the text in the that `proposal_call_strategy_alignment_plan.md document` under the `Deliverables` heading (line 221) and the existing text in the @main.tex document. Note that the text in `Approach` in the @main.tex document has not been updated yet."
+
+Reasoning summary:
+
+- I used the existing `Deliverables` section in `main.tex` as the starting point because it preserves the three technical parts of the proposal.
+- I used the Deliverables plan below to add the mandatory call outputs that were missing: final report, open-source artifact or equivalent, and presentation/technology demonstration.
+- I bounded the collection guidance deliverable to a representative reviewed set, because the current proposal text still risks overpromising all OPeNDAP-enabled ESDIS collections before the Approach section has been tightened.
+- I did not edit `main.tex`; the rewritten section is added below as planning text for review.
+
 ### 2026-06-08 10:55 MDT
 
 Prompt: "In the pal [proposal_call_strategy_alignment_plan.md](docs/proposal_call_strategy_alignment_plan.md) implement the plan in the section titled `Limitations and Challenges`. Do this by making a new section called `New Limitations and Challenges` so that I can see the current and new sections in the same document. You may edit main.tex."
@@ -239,6 +250,74 @@ Plan:
 - Add acceptance evidence for each deliverable where possible.
 - Avoid promising "all OPeNDAP-enabled data in ESDIS" unless that scope is defensible within 9 months and the budget.
 - Make open-science availability explicit: code, schemas, sample artifacts, documentation, and validation results should be public unless restricted by NASA policy.
+
+### New Deliverables - THIS IS AI's TAKE ON A REWRITE. NOT USED jhrg 6/9/26
+
+\section{Deliverables}
+
+We will produce the following artifacts that satisfy the required deliverables
+while preserving provenance, review status, and a clear path to \ac{EDC}
+operations. The deliverables are: 
+
+\begin{enumerate} 
+
+\item \textbf{An \ac{AI}-crawlable Hyrax/\acs{OPeNDAP} interface.} We will
+deliver a working Virtual Directory Interface for representative
+    \acs{OPeNDAP}-enabled \ac{ESDIS} collections, using either the existing
+    \acs{OPeNDAP} Hyrax interface or the \ac{CMR} virtual directory path
+    selected with \ac{ESDIS} guidance. The acceptance evidence will show that
+    generic \ac{AI} tools can discover target collections, traverse the
+    collection structure, and reach the expected \ac{DAP4} service endpoints
+    without collection-specific adaptation. If production deployment approval is
+    outside the project's control during the award period, we will deliver the
+    working Hyrax prototype and a documented integration path for \ac{EDC}.
+
+    \item \textbf{Agentic metadata introspection and validation software.} We
+    will deliver open-source software that crawls selected
+    \acs{OPeNDAP}-enabled collections, queries \ac{CMR}, inspects
+    \acs{OPeNDAP}/\ac{DAP4} responses, samples representative granules using 
+    \acs{OPeNDAP}, examines \ac{DMR++} access structure where available,
+    and drafts evidence-linked collection guidance. The repository will include
+    tool-call definitions, schemas, prompts or workflow configuration,
+    validation scripts, regression tests, and developer documentation. The
+    acceptance evidence will show that the workflow distinguishes stated facts,
+    defensible inferences, uncertain claims, and unsupported claims.
+
+    \item \textbf{Reviewed collection-level \texttt{usage.md} artifacts.} For a
+    named or representative set of collections selected with \ac{ESDIS} and
+    \ac{DAAC} partners, we will deliver reviewed Markdown guidance files that
+    summarize collection scope, provenance, source identifiers, variables,
+    units, coordinates, fill values, value ranges, temporal and spatial bounds,
+    chunking and access guidance, known access issues, evidence links,
+    confidence labels, review status, and last-refresh time. Generated guidance
+    will not be treated as authoritative until it has passed validation and
+    expert review. Public sample artifacts and validation results will be made
+    available unless restricted by \ac{NASA} policy.
+
+    \item \textbf{Prototype exposure of approved guidance through
+    Hyrax/\ac{DAP4}.} We will deliver a prototype or integration path that makes
+    reviewed guidance available through existing Hyrax/\ac{DAP4} responses so
+    autonomous clients can use the guidance at the point of retrieval. Existing
+    \acs{OPeNDAP} clients should continue to work without change, while
+    agent-aware clients will be able to locate the approved guidance and use it
+    to issue valid, chunk-aware subset requests in representative workflows.
+
+    \item \textbf{Open-science repository and documentation.} We will provide a
+    public GitHub repository artifact containing the
+    prototype software, schemas, sample \texttt{usage.md} files, validation
+    scripts, test cases, documentation, and user-facing examples. This artifact
+    will document external model, framework, platform, licensing, and data-rights
+    assumptions needed to reproduce or extend the work.
+
+    \item \textbf{Final report, presentation, and technology demonstration.} At
+    the end of the project, we will provide a brief final report of no more than
+    ten pages describing what was built, how it was validated, what was learned,
+    remaining risks, and the recommended path to operations. We will also
+    provide a presentation and technology demonstration for the Earth Data
+    Officer and the leadership team, showing the crawlable interface, the
+    metadata-introspection workflow, reviewed guidance artifacts, and the
+    retrieval workflow enabled by in-band guidance.
+\end{enumerate}
 
 ### Validation and Path to Operations
 

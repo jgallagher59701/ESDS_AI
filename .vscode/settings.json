@@ -18,10 +18,14 @@
     "asan",
     "autoreconf",
     "autotools",
+    "crawlable",
     "ctest",
     "Doxygen",
+    "ESDIS",
     "libdap",
+    "NDAP",
     "TESTSUITEFLAGS",
+    "textbf",
     "worktree"
   ]
 }
