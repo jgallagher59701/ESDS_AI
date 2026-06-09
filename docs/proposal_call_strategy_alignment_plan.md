@@ -15,6 +15,17 @@ I did not read `docs/study_phase_notes_jhrg.txt`.
 
 ## Work Log
 
+### 2026-06-08 10:55 MDT
+
+Prompt: "In the pal [proposal_call_strategy_alignment_plan.md](docs/proposal_call_strategy_alignment_plan.md) implement the plan in the section titled `Limitations and Challenges`. Do this by making a new section called `New Limitations and Challenges` so that I can see the current and new sections in the same document. You may edit main.tex."
+
+Reasoning summary:
+
+- I used the existing `Limitations and Challenges` plan bullets in this document as the requirements for the rewrite.
+- I kept the current section intact and added a separate drafted replacement so you can compare the old and new text in one place.
+- I translated the risk list into proposal-ready risk/mitigation prose, emphasizing reviewer concerns named elsewhere in the plan: validation, operational control, external dependencies, security, and path-to-operations realism.
+- I also updated `main.tex` so the live proposal text now matches the new drafted section rather than leaving the rewrite only in the planning document.
+
 ### 2026-06-05 14:53 MDT
 
 Prompt: "For the repo (ESDS_AI), please the read the text (@main.tex) and compare with the 'call' in [esds_ai_innovation_call.pdf](esds_ai_innovation_call.pdf) and the [ESDS-AI-Strategy.pdf](ESDS-AI-Strategy.pdf) . Show me a plan to improve the text in each section, but don't perform the steps. Instead, write that plan to the repo's docs directory. Then provide me with a summary of the 5 most important fixes to make."
@@ -194,6 +205,18 @@ Plan:
 - Pair each risk with controls: fallback interface path, deterministic validators, evidence tags, confidence labels, refusal behavior, human review, model abstraction, open-source code, CI/CD, test collections, versioning, security review, and decision gates.
 - Keep the cohort-learning point, but attach it to concrete unknowns such as tool maturity and operational practices.
 - Remove informal or awkward phrasing during final editing.
+
+### New Limitations and Challenges - THIS IS AI's TAKE ON A REWRITE. NOT USED jhrg 6/8/26
+
+This project carries both technical and operational risk, so we will manage each major risk with a specific control and fallback path. For Part 1, deployment of the Virtual Directory Interface depends in part on \ac{ESDIS}, \ac{CMR}, and \ac{DAAC} operational decisions, including approval of where the interface is hosted and who owns publication into production buckets or service endpoints. If deployment approval is delayed or denied, we will still deliver the crawlable interface as an open, documented prototype integrated with Hyrax and validated against representative collections, while documenting the remaining operational steps needed for \ac{EDC} adoption.
+
+For Part 2, the central risk is that an agentic workflow could generate incorrect or incomplete collection guidance through hallucination, false positives, or false negatives. We will reduce that risk by constraining the agent to tool-mediated inspection of \ac{CMR}, \ac{CF}, \ac{DAP4}, and data-derived evidence; by requiring evidence tags, confidence labels, and explicit refusal behavior when the system cannot justify a claim; and by running deterministic validators and regression tests on representative collections. Reviewed guidance will be treated as an approved artifact, not as raw model output.
+
+The project also depends on a rapidly changing external \ac{AI} software ecosystem, including models, orchestration frameworks, and cloud or \ac{API} pricing. To keep those dependencies from driving the design, we will isolate model-specific logic behind stable interfaces, keep the core software open source and testable without a single vendor dependency, track versioned prompts and tool schemas in \ac{CICD}, and use decision gates to limit scope if a framework or model path becomes unstable or cost-prohibitive.
+
+Because the system will consume machine-readable web content and metadata, it must also account for prompt injection, malicious or malformed agent-readable pages, stale guidance, and licensing or data-rights constraints on derived artifacts. We will address those risks through source allow-lists, content validation, provenance capture, versioning of generated guidance, human review before publication, and security review before exposing any new in-band guidance through operational \ac{DAP4} responses. We will also bound the number of collections and publication targets addressed during the project so reviewer capacity and operations coordination remain realistic.
+
+Finally, we expect some project risks to come from operational practices that are still emerging across the community, not only from the code itself. We will use the cohort-learning structure of this call to compare validation methods, security practices, and operational transition patterns with peer teams, while still relying on our own test collections, review checkpoints, and deployment criteria to decide what is mature enough to release.
 
 ### Deliverables
 
