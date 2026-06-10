@@ -84,18 +84,18 @@ distributed across resources.
 
 \ac{AI} is the right tool to address this problem because the task is not a
 single deterministic check; it is an evidence-gathering workflow across many
-heterogeneous collections. An agent can traverse collection structure, inspect
+heterogeneous collections. An \ac{AI} agent can traverse collection structure, inspect
 \ac{CMR} and \acs{OPeNDAP} metadata, sample representative granules with
 \acs{OPeNDAP}, compare findings across granules, draft machine-actionable
 guidance, and flag discrepancies for expert review. The factual claims in that
 workflow remain grounded in deterministic service responses and programmatic
-checks of units, coordinates, ranges, fill values, chunk layout, and
+checks of units, coordinates, \ldots, and
 cross-granule consistency.
 
 The work described in Section~\ref{section-2} advances the \ac{ESDS} \ac{AI} Strategy
-primarily within the Infrastructure and Access pillars. It strengthens
-Infrastructure by improving metadata systems, \ac{AI}-readiness, and open
-machine-readable interfaces, and it strengthens Access by making NASA data
+primarily within the {\em Infrastructure} and {\em Access} pillars. It strengthens
+infrastructure by improving metadata systems, \ac{AI}-readiness, and open
+machine-readable interfaces, and it strengthens access by making NASA data
 easier for both humans and \ac{AI} agents to find and use through existing
 services. Instead of building a new portal or platform, this project modernizes
 the \acs{OPeNDAP} Hyrax service and \ac{EDC} workflows.
@@ -109,10 +109,10 @@ makes an archive \ac{AI}-ready, using \acs{OPeNDAP} as the test case. We
 summarize that feasibility experiment here; the full audit trail is available
 in the open \texttt{grep-dap} repository~\cite{cornillon-grepdap-2026}.
 
-The question was whether a model, constrained by the \acs{OPeNDAP} protocol and
+The question was whether a \ac{LLM}, constrained by the \acs{OPeNDAP} protocol and
 by direct statistical probes of the data, could recover missing semantic
 metadata the way a scientist would: reading directory and variable names,
-parsing \ac{DAP4} structure, sampling values, and comparing against
+parsing data set structure, sampling values, and comparing against
 better-annotated sibling datasets. We ran the agent against a live Hyrax server
 at the \ac{URI}, grounding each conclusion in catalog structure, structural
 metadata, and small hypothesis-driven hyperslab probes. The results were
@@ -125,8 +125,8 @@ strong:
     variables.
     \item On an adjacent collection carrying \emph{zero} semantic metadata, the
     \ac{AI} assistant reconstructed units, coordinate orientation, and variable
-    meaning by combining variable-name grammar, inheritance from a
-    better-annotated sibling collection, and direct geographic probes.
+    meaning by combining variable-name grammar, comparison with a related data
+    set, and direct geographic probes.
     \item For a derived gradient product, the \ac{AI} assistant correctly
     estimated a physically essential quantity supplied nowhere in the
     metadata---the spatial support of the differencing operator---at $5 \pm
@@ -141,7 +141,7 @@ attributes, graded each inference by evidence strength, and refused to invent
 unsupported information.
 
 This subsection is included to demonstrate present-day \emph{potential}, not to
-describe the operational method we propose for \ac{NASA}. A prompt-driven audit
+describe the operational method we propose for NASA. A prompt-driven audit
 can show feasibility, but it does not scale to agency needs. The approach in
 Section~\ref{section-2} therefore moves from this illustrative example to an
 autonomous agentic system that uses the same evidence discipline with explicit
@@ -267,7 +267,7 @@ tooling, validation, and risk controls.
 % systems to the \ac{EDC} operational environment.
 
 % Making the generated metadata documents accessible to end-users introduces the
-% risk of misrepresenting \ac{NASA}data. To mitigate this risk, we will have an
+% risk of misrepresenting NASAdata. To mitigate this risk, we will have an
 % expert review the documents before they are made accessible to end-users. We
 % will use controls like those built into the proof of concept system described in
 % Section~\ref{section-1.1} to help flag content most in need of review. Where
@@ -287,7 +287,7 @@ tooling, validation, and risk controls.
 \section{Proposed Approach}
 \label{section-2}
 
-This project extends Hyrax in the \ac{EDC} to improve discovery, metadata
+This project extends \acs{OPeNDAP}/Hyrax in the \ac{EDC} to improve discovery, metadata
 quality, and autonomous data access without replacing existing operational
 services. We will use model/API inference inside a tool-based agentic workflow
 that coordinates deterministic calls to \ac{CMR}, \acs{OPeNDAP}/Hyrax, and
@@ -302,10 +302,10 @@ units, coordinates, ranges, fill values, chunk structure, and cross-granule
 consistency. Each generated claim will carry provenance, confidence, and review
 status. The software, schemas, workflow configuration, validation scripts, and
 sample artifacts will be made available as open-science outputs unless
-restricted by \ac{NASA} policy.
+restricted by NASA policy.
 
 The work is scoped to selected representative collections and granules chosen
-with \ac{ESDIS} and \ac{DAAC} partners. The three subsections below describe how
+with our \ac{DAAC} collaborator. The three subsections below describe how
 the project first makes those collections crawlable by generic \ac{AI} tools,
 then produces validated collection-level \texttt{usage.md} metadata documents,
 and finally exposes approved \texttt{usage.md} documents through existing
@@ -319,14 +319,14 @@ The first part of the project will provide an \ac{AI}-crawlable, web-friendly
 view of selected \acs{OPeNDAP}-enabled \ac{ESDIS} collections. The goal is for
 generic \ac{AI} tools to discover target collections, traverse the collection
 hierarchy, and access data and metadata from a collection generic tools. This
-supports the Infrastructure and Access pillars by exposing existing services
+supports the {\em Infrastructure} and {\em Access} pillars by exposing existing services
 through open machine-readable interfaces rather than by building a new portal.
 
 Hyrax already demonstrates this pattern when it serves local data files: its
 directory pages can be traversed by common web and \ac{AI} tools. For the
 \ac{EDC} environment, \acs{OPeNDAP} has developed a Virtual Directory Interface
 that mimics the same Hyrax behavior for cloud-hosted collections. Early in the
-project, we will work with \ac{ESDIS}, and \ac{DAAC} to deploy this interface.
+project we will work with \ac{ESDIS} to deploy this interface.
 
 \subsection{AI-assisted metadata introspection and validation}
 \label{section-2.2}
@@ -336,7 +336,7 @@ inspects \acs{OPeNDAP}-enabled \ac{EDC} collections and drafts one
 collection-level \texttt{usage.md} file for each selected collection. We may
 crawl broader coverage when feasible, but the proposal commitment is to
 generate and validate guidance for a representative set selected with
-\ac{ESDIS} and \ac{DAAC} partners.
+our \ac{DAAC} collaborator.
 
 \begin{figure}
     \centering
@@ -363,7 +363,7 @@ claims will be omitted or routed for review rather than published. At no time
 with this system modify any \ac{EDC} artifact (e.g., \ac{CMR} record); only the
 \texttt{usage.md} documents will be created/edited by this system.
 
-This part also adds staleness controls. Each \texttt{usage.md} document will include
+This part of the project also adds `staleness' controls. Each \texttt{usage.md} document will include
 versioning, provenance, review status, and timestamps. While out of scope for
 this project, these features provide a path to future expansion to include support for
 Governance and Standards. We include them here because they simplify the review
@@ -373,8 +373,7 @@ Because \ac{DMR++} exposes chunk structure and related access information
 through the \acs{OPeNDAP} interface, the guidance can also describe retrieval
 strategies that avoid unnecessary reads and align requests with chunked cloud
 objects where possible. That information is useful to autonomous agents and to
-virtual data systems such as {\em VirtualiZarr}, but it remains evidence-linked
-guidance.
+virtual data systems such as {\em VirtualiZarr}~\cite{nicholas_2026_virtualizarr}.
 
 \subsection{Machine-actionable guidance for autonomous data retrieval workflows}
 \label{section-2.3}
@@ -382,7 +381,7 @@ guidance.
 The third part of the project will make eligible \texttt{usage.md} documents
 available when users access data using \ac{OPeNDAP}. Part 2 creates and validates
 collection-level \texttt{usage.md} artifacts; Part 3 exposes the guidance and its
-review status through existing Hyrax/\ac{DAP4} responses so clients can retrieve
+review status through existing \ac{OPeNDAP}/Hyrax responses so clients can retrieve
 it in-band when they request data or metadata. This keeps the solution inside existing
 \acs{OPeNDAP} service patterns and avoids creating another discovery portal.
 
@@ -393,25 +392,21 @@ unsupported inferences, or validation failures. Documents that contain such
 flags will not be included in the \ac{OPeNDAP} responses and instead flagged for
 expert review.
 
-Every \texttt{usage.md} artifact, whether exposed or withheld, will
+Nevertheless, every \texttt{usage.md} artifact, whether exposed or withheld, will
 retain provenance, confidence, last-refresh information, and an explicit review
-status. Exposed documents will be labeled as reviewed or unreviewed with no
-issues flagged; documents withheld for review will be labeled as
-review required. Existing \acs{OPeNDAP} and \ac{DAP4} clients should continue to
-work without change, while agent-aware clients will be able to locate the
-guidance, interpret variables and conventions correctly, and issue valid subset
-requests that are consistent with the collection's units, coordinate
-orientation, fill-value rules, and chunk/access structure.
+status. Exposed documents will be labeled as {\em reviewed} or [\em unreviewed with no
+issues flagged}; documents withheld for review will be labeled as
+review required. Existing \acs{OPeNDAP} clients will continue to
+work without change, while agent-aware clients will be able to locate and use the
+guidance.
 
 \section{Deliverables}
-At the end of the project, three concrete outputs will exist that do not exist
-today:
+At the end of the project, three new concrete outputs:
 
 \begin{enumerate}
 \item \textbf{A working \ac{AI}-crawlable interface prototype.} We will deliver
 a Virtual Directory Interface for representative \acs{OPeNDAP}-enabled
-\ac{ESDIS} collections, using Hyrax or the \ac{CMR} virtual directory path
-selected with \ac{ESDIS} guidance. The prototype will show that generic
+\ac{ESDIS} collections. The prototype will show that generic
 \ac{AI} clients can discover target collections, traverse collection structure,
 and reach expected \ac{DAP4} service endpoints. If production deployment
 approval is outside the project's control during the award period, we will
@@ -419,18 +414,17 @@ deliver the working prototype and a documented \ac{EDC} integration path.
 
 \item \textbf{An open-source metadata-introspection repository.} We will deliver
 software that crawls selected collections, queries \ac{CMR}, inspects
-\acs{OPeNDAP}/\ac{DAP4} responses, samples representative granules, and drafts
+\acs{OPeNDAP}/Hyrax responses, samples representative granules, and drafts
 evidence-linked collection guidance. The public repository will include source
 code, schemas, prompts or workflow configuration, validation scripts, regression
 tests, developer documentation, and reproducibility notes.
 
 \item \textbf{Reviewed guidance, documentation, and demonstration materials.}
-For collections selected with \ac{ESDIS} and \ac{DAAC} partners, we will deliver
+For collections selected with our \ac{DAAC} collaborator, we will deliver
 reviewed \texttt{usage.md} files covering, as appropriate, identifiers,
-variables, units, coordinates, fill values, value ranges, temporal and spatial
-bounds, chunking and access guidance, evidence links, confidence labels, review
-status, and refresh time. Approved guidance will be exposed through prototype
-Hyrax/\ac{DAP4} responses, accompanied by user documentation, sample workflows,
+variables, units, and other metadata elements described in
+Section~\ref{section-2.2}. Approved guidance will be exposed through prototype
+\ac{OPeNDAP}Hyrax responses, accompanied by user documentation, sample workflows,
 validation results, a final report, and a presentation/demo.
 \end{enumerate}
 
@@ -483,7 +477,7 @@ service that must be adopted independently. The Virtual Directory Interface can
 be incorporated into Hyrax deployments using the same software distribution
 mechanisms already used for \acs{OPeNDAP} server updates. The
 metadata-generation software will be maintained in an open repository so that it
-can be inspected by \ac{NASA} partners, and improved through operational experience.
+can be inspected by NASA partners, and improved through operational experience.
 The generated markdown guidance can be reviewed by domain experts before
 publication and then served through existing \ac{DAP4} responses, allowing
 adoption first in pilot collections and then, if successful, across additional
