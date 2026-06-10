@@ -215,6 +215,12 @@ our \ac{DAAC} collaborator.
     \label{fig1:placeholder}
 \end{figure}
 
+Figure~\ref{fig1:placeholder} illustrates the workflow. The agent will be
+configured with a schema for the \texttt{usage.md} documents and a set of tools
+to execute the various tasks required for metadata introspection and validation.
+The generated \texttt{usage.md} documents will be stored in an S3 bucket manged
+by \ac{OPeNDAP} and separate from any of the \acs{DAAC} artifacts.
+
 For each selected collection, the workflow will query \ac{CMR}, traverse Hyrax,
 inspect \ac{DAP4} structural metadata, sample representative granules through
 \acs{OPeNDAP} using tools such as \ac{PyDAP}, inspect \ac{DMR++} access
@@ -302,35 +308,6 @@ cover {\em selected} and/or {\em representative} collections and granules. This
 is to ensure the work and the promised deliverables are achievable within the
 project scope. 
 
-% This text is included in the approach section now.
-% There are currently approximately 2,000 collections served by
-% \ac{OPeNDAP}/Hyrax in the \ac{EDC}. The project will work with \ac{ESDIS} and
-% \ac{DAAC} partners to select a subset of those collections for this project.
-
-%%%%%%%%% Stopped here %%%%%%%%%%%
-\textbf{Stopped here. jhrg 6/9/26}
-
-% Current fit:
-
-% - The current section is substantially improved compared with the old empty placeholder.
-% - It still needs named validators, success thresholds, and operational transition gates.
-% - It does not yet explicitly address open science in the way the call asks.
-
-% Plan:
-
-% - Add measurable success criteria:
-%   - Crawlability: number or percentage of target collections discovered and traversed.
-%   - Endpoint reachability: expected CMR, Hyrax, and DAP4 endpoints reached reproducibly.
-%   - Metadata quality: expert-confirmed precision/recall or categorized discrepancy outcomes for generated claims.
-%   - Hallucination control: unsupported claims are refused or labeled uncertain.
-%   - Retrieval success: autonomous clients complete correct subset requests more often than a baseline without embedded guidance.
-%   - Efficiency: fewer avoidable retries, better chunk alignment, or reduced time-to-first-use in selected workflows.
-% - Name validators if confirmed: Ed Armstrong/PO.DAAC for DAAC/domain review, OPeNDAP engineering for Hyrax integration, and ESDIS/DAAC partners for operational fit.
-% - If a validator is not confirmed, say "to be confirmed with ESDIS/DAAC partners" rather than inventing commitment.
-% - Define path-to-operations gates: ESDIS choice of VDI path, security/data-rights review, human review workflow for generated artifacts, CI/CD, maintenance ownership, pilot collection rollout, and criteria for expanding beyond pilot collections.
-% - Add open-science validation artifacts: scripts, test cases, generated sample guidance, and validation results in the public repo when policy allows.
-
-
 \section{Validations and Path to Operations}
 Our validation approach follows from the three deliverables. For Part 1, we will
 validate the Virtual Directory Interface by confirming that generic \ac{AI}
@@ -364,12 +341,6 @@ public and by domain experts. We will follow NASA policy/guidance on how
 publicly available these documents should be.
 
 \section{Timeline}
-
-\textbf{Note}: We need this work to fall with the time between 1 July and the
-end of the current EED3 contract which is Dec 31, 2026. Thus it is a six month project.
-
-\textbf{Note 2}: I need to send a copy of this to Peter Plofchan at his RTX
-email (peter.g.plofchan@rtx.com).
 
 \subsection*{Part 1: AI-discoverable and crawlable service interfaces} 
 \begin{description}
