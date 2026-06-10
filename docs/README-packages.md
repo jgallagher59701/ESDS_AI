@@ -12,7 +12,7 @@ Then, install TeX live manager
 `sudo tlmgr update --self`
 `sudo tlmgr install <package_name>`
 
-Install enumitem acronym bigfoot xstring
+Install: enumitem acronym bigfoot xstring preprint
 
 To use fontspec (and thus Arial)
 `sudo tlmgr install fontspec lualatex-math`

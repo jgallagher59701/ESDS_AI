@@ -30,25 +30,21 @@
 
 \usepackage[numbers]{natbib}
 
-% \usepackage{listings}
+\usepackage{authblk}   
+\title{AI-assisted metadata curation and agent-ready OPeNDAP access}
 
-% \usepackage{authblk}   
-% \title{AI-driven Metadata Curator and Agentic AI Enabler via OPeNDAP to Meet Challenges in the Earth Science Data System}
+\author[1]{James Gallagher}
+\author[2]{Edward Armstrong}
 
-%\author[1]{James Gallagher}
-%\author[2]{Edward Armstrong}
-
-% \affil[1]{OPeNDAP, Butte, MT}
-% \affil[2]{NASA JPL PODAAC, Pasadena, CA}
-% \date{\today}
+\affil[1]{OPeNDAP, Butte, MT}
+\affil[2]{NASA JPL PODAAC, Pasadena, CA}
+\date{\today}
 
 \begin{document}
 
 \bibliographystyle{plain}
 
-% Set up for the listing environment. jhrg 5/29/26
-% \lstset{basicstyle=\footnotesize\ttfamily,breaklines=true}
-% \lstset{framextopmargin=5pt,frame=single}
+\maketitle
 
 \begin{flushleft}
 \noindent \textbf{Innovation Call Title}: {\em AI-assisted metadata curation and agent-ready OPeNDAP access}\\
@@ -58,7 +54,12 @@
 \textbf{Requested Funding}: {\em \$183,177}
 \end{flushleft}
 
-% \maketitle
+\tableofcontents
+
+\thispagestyle{empty} 
+\clearpage
+
+\setcounter{page}{1}
 
 \section{Overview and Background}
 
@@ -536,10 +537,25 @@ present the working prototype as the final deliverable.
 
 \section{Team}
 
-See Appendix~\ref{app-team} for Table~\ref{tab-team} summarizing the team
-members.
+The project team combines \acs{OPeNDAP} engineering, NASA \ac{PODAAC}
+operational knowledge, and physical-oceanography domain expertise. {\em James
+Gallagher} will lead the project and contribute agentic \ac{AI} development and
+software engineering. {\em Hannah Robertson} will contribute agentic \acs{AI}
+development and software engineering. {\em Miguel \`{A}ngel Jim\`{e}nez} will
+collaborate on agentic \acs{AI} development, domain review, and testing as an
+\acs{OPeNDAP}-funded contributor.
 
-\textbf{The PODAAC/ESDIS connection must be clear.}
+The \ac{PODAAC}/\ac{ESDIS} connection is provided by {\em Ed Armstrong} at NASA
+\ac{JPL} \acs{PODAAC}. Ed will support domain validation and testing, help select
+representative collections, and provide \acs{PODAAC} operational feedback on
+whether the prototype fits practical \ac{DAAC} review workflows. This gives the
+work a direct validation path against NASA \acs{ESDIS} operational needs, rather
+than only an \acs{OPeNDAP}-side software demonstration.
+
+{\em Peter Cornillon} will contribute unfunded domain validation and testing as a
+collaborator at the University of Rhode Island. Appendix~\ref{app-team} provides
+Table~\ref{tab-team}, which summarizes the team members, effort, and
+contributions.
 
 
 \section{Budget Summary}
