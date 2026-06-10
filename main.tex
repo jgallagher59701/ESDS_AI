@@ -441,6 +441,27 @@ project scope.
 %%%%%%%%% Stopped here %%%%%%%%%%%
 \textbf{Stopped here. jhrg 6/9/26}
 
+% Current fit:
+
+% - The current section is substantially improved compared with the old empty placeholder.
+% - It still needs named validators, success thresholds, and operational transition gates.
+% - It does not yet explicitly address open science in the way the call asks.
+
+% Plan:
+
+% - Add measurable success criteria:
+%   - Crawlability: number or percentage of target collections discovered and traversed.
+%   - Endpoint reachability: expected CMR, Hyrax, and DAP4 endpoints reached reproducibly.
+%   - Metadata quality: expert-confirmed precision/recall or categorized discrepancy outcomes for generated claims.
+%   - Hallucination control: unsupported claims are refused or labeled uncertain.
+%   - Retrieval success: autonomous clients complete correct subset requests more often than a baseline without embedded guidance.
+%   - Efficiency: fewer avoidable retries, better chunk alignment, or reduced time-to-first-use in selected workflows.
+% - Name validators if confirmed: Ed Armstrong/PO.DAAC for DAAC/domain review, OPeNDAP engineering for Hyrax integration, and ESDIS/DAAC partners for operational fit.
+% - If a validator is not confirmed, say "to be confirmed with ESDIS/DAAC partners" rather than inventing commitment.
+% - Define path-to-operations gates: ESDIS choice of VDI path, security/data-rights review, human review workflow for generated artifacts, CI/CD, maintenance ownership, pilot collection rollout, and criteria for expanding beyond pilot collections.
+% - Add open-science validation artifacts: scripts, test cases, generated sample guidance, and validation results in the public repo when policy allows.
+
+
 \section{Validations and Path to Operations}
 Our validation approach follows from the three deliverables. For Part 1, we will
 validate the Virtual Directory Interface by confirming that generic \ac{AI}
@@ -448,63 +469,70 @@ clients can discover and traverse representative \acs{OPeNDAP}-enabled
 collections in \ac{ESDIS} without collection-specific adaptation. Success will
 be measured by fraction of the collections and granules that can be accessed.
 
-whether the interface exposes the expected collection structure
-and whether autonomous crawlers can reach the same collection endpoints that
-expert users reach.
+For Part 2, we will validate the reachability of the key endpoints (i.e.,
+\ac{CMR}, \acs{OPeNDAP}/Hyrax, and \ac{DMR++} documents) by the \ac{AI} agents.
 
-For Part 2, we will validate the agentic metadata-generation workflow by
+In addition, we will validate
+the agentic metadata-generation workflow by
 comparing the generated markdown documents against authoritative sources,
 including \ac{CMR} collection and granule metadata, and the results of direct
 \ac{DAP4} inspection. The system will be judged on whether it produces complete,
 evidence-linked metadata summaries, correctly flags uncertainty or disagreement,
 and avoids asserting facts that are not supported by the data or upstream
-metadata. Members of the project team, together with collaborators familiar with
-the selected \ac{ESDIS} collections, will review a representative sample of
-these generated documents to confirm that they are accurate and useful for
-downstream retrieval tasks.
+metadata. The team has three expert validators that can review the generated documents.
 
 For Part 3, we will validate operational usefulness by testing whether an
-autonomous client can use the embedded guidance to make correct data access and
-subsetting requests on the first attempt more often than a baseline workflow
-that relies only on conventional metadata records. We will evaluate whether the
-resulting requests are retrieval-correct, reduce avoidable iteration, and
-capture dataset-specific constraints that are often learned only through
-expert experience.
+autonomous client can use the embedded guidance (the content of the
+\texttt{usage.md} documents embedded in the response from the \ac{OPeNDAP}/Hyrax
+service) to make correct data access and
+subsetting requests.
 
-The path to operations is intentionally incremental because this project extends
-existing \acs{OPeNDAP} and Hyrax capabilities rather than introducing a new
-service that must be adopted independently. The Virtual Directory Interface can
-be incorporated into Hyrax deployments using the same software distribution
-mechanisms already used for \acs{OPeNDAP} server updates. The
-metadata-generation software will be maintained in an open repository so that it
-can be inspected by NASA partners, and improved through operational experience.
-The generated markdown guidance can be reviewed by domain experts before
-publication and then served through existing \ac{DAP4} responses, allowing
-adoption first in pilot collections and then, if successful, across additional
-\ac{ESDIS} holdings.
+Validation will also include presence of open-science products that are part of
+our public GitHub repository. These include scripts, test cases, generated
+sample guidance, and validation results. In addition, the \texttt{usage.md}
+documents themselves will be open-science artifacts that can be reviewed by the
+public and by domain experts. We will follow NASA policy/guidance on how
+publicly available these documents should be.
 
 \section{Timeline}
 
+\textbf{Note}: We need this work to fall with the time between 1 July and the
+end of the current EED3 contract which is Dec 31, 2026. Thus it is a six month project.
+
+\textbf{Note 2}: I need to send a copy of this to Peter Plofchan at his RTX
+email (peter.g.plofchan@rtx.com).
+
 \subsection*{Part 1: AI-discoverable and crawlable service interfaces} 
 \begin{description}
-    \item [Month 1] Deploy and test the Hyrax Virtual Directory Interface candidate and define target validation collections.
-    \item [Month 2] Choose the Virtual Directory Interface path with \ac{ESDIS} guidance and verify crawlability and collection coverage. Decision point: confirm the interface approach for the rest of the project.
+    \item [Month 1] Deploy and test the Hyrax Virtual Directory Interface
+    candidate and define target validation collections. 
 \end{description}
+
+Decision point: confirm that the interface is operational (as a working
+prototype).
 
 \subsection*{Part 2: AI-assisted metadata introspection and validation} 
 \begin{description}
-    \item [Month 3] Design the agent workflow, evidence schema, and `usage.md` schema.
-    \item [Month 4] Implement initial \ac{CMR}, \acs{OPeNDAP}/\ac{DAP4}, \ac{PyDAP}/Xarray, and \ac{DMR++} tool calls.
-    \item [Month 5] Generate the first `usage.md` artifacts for representative collections.
-    \item [Month 6] Run expert review and revise validators based on false positives and false negatives. Decision point: confirm the metadata-generation approach before the integration work.
-    \end{description}
+    \item [Month 2] Design the agent workflow, evidence schema, and `usage.md` schema.
+    \item [Month 3] Implement initial \ac{CMR}, \acs{OPeNDAP}/Hyrax, \ac{PyDAP}, and \ac{DMR++} tool calls.
+    \item [Month 4] Generate the first `usage.md` artifacts for representative
+    collections. Run expert review and revise validators based on the review. 
+\end{description}
+   
+Decision point: Confirm that the generated metadata documents are accurate and
+useful, and that the review process is effective.
+
 
 \subsection*{Part 3: Machine-actionable guidance for autonomous data retrieval workflows} 
 \begin{description}
-    \item [Month 7] Prototype \ac{DAP4} embedding or in-band guidance exposure in Hyrax.
-    \item [Month 8] Validate autonomous retrieval workflows and the operational review path. Decision point: confirm readiness for final packaging and delivery.
-    \item [Month 9] Package the open-source artifacts, final report, and presentation/demo, and present the working prototype as the final deliverable. 
+    \item [Month 5] Prototype \ac{DAP4} embedding guidance (i.e., the
+    information in the \texttt{usage.md} documents) in Hyrax responses.
+    \item [Month 6] Validate autonomous retrieval workflows and the operational
+    review path. 
 \end{description}
+
+Package the open-source artifacts, final report, and presentation/demo, and
+present the working prototype as the final deliverable. 
 
 \section{Team}
 
