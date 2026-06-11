@@ -174,12 +174,15 @@ sample artifacts will be made available as open-science outputs unless
 restricted by NASA policy.
 
 The work is scoped to selected representative collections and granules chosen
-with our \ac{DAAC} collaborator. The three subsections below describe how
-the project first makes those collections crawlable by generic \ac{AI} tools,
-then produces validated collection-level \texttt{usage.md} metadata documents,
-and finally exposes approved \texttt{usage.md} documents through existing
-\ac{DAP4} responses so autonomous clients can retrieve data correctly and
-efficiently at the point of use.
+with our \ac{DAAC} collaborator. The subsections below describe how the project
+first makes those collections crawlable by generic \ac{AI} tools, then produces
+validated collection-level \texttt{usage.md} metadata documents. We originally
+intended to make these documents seamlessly available through the existing
+\ac{OPeNDAP} service responses, but given time constraints of the project's
+funding,\footnote{EED3 contract funding ends on 29 Jan 2027.} we will leave that
+integration as part of moving this work into operations. The generated
+\texttt{usage.md} documents will be available to external users through a
+separate S3 bucket.
 
 \subsection{AI-discoverable and crawlable service interfaces}
 \label{section-2.1}
@@ -213,8 +216,7 @@ our \ac{DAAC} collaborator.
     \caption{Deployment architecture for the agentic system. In part 2 of the
     project, the crawler/agent will run in AWS, The
     agent will query CMR and \ac{OPeNDAP}/Hyrax and store the \texttt{usage.md}
-    documents in AWS S3. In part 3 The Hyrax service will integrate the metadata
-    documents into its responses.}
+    documents in AWS S3.}
     \label{fig1:placeholder}
 \end{figure}
 
@@ -241,6 +243,12 @@ claims will be omitted or routed for review rather than published. At no time
 with this system modify any \ac{EDC} artifact (e.g., \ac{CMR} record); only the
 \texttt{usage.md} documents will be created/edited by this system.
 
+Safety and security are important concerns for this system and to guard against
+common security threats, the system will use a tool-based architecture with 
+strict input/output schemas, and manual tool invocation using, e.g., LangChain.
+This will provide a way to ensure that Web APIs surfaced by NASA systems (e.g.,
+\ac{CMR}) only receive sanitized inputs.
+
 This part of the project also adds `staleness' controls. Each \texttt{usage.md} document will include
 versioning, provenance, review status, and timestamps. While out of scope for
 this project, these features provide a path to future expansion to include support for
@@ -253,30 +261,36 @@ strategies that avoid unnecessary reads and align requests with chunked cloud
 objects where possible. That information is useful to autonomous agents and to
 virtual data systems such as VirtualiZarr~\cite{nicholas_2026_virtualizarr}.
 
-\subsection{Machine-actionable guidance for autonomous data retrieval workflows}
-\label{section-2.3}
+The generated \texttt{usage.md} documents will be stored in an S3 bucket managed
+by \ac{OPeNDAP} and separate from any of the \acs{DAAC} artifacts. They will be
+available to external users through a separate S3 bucket, and they will be made
+available through the \ac{OPeNDAP}/Hyrax service responses when the work is made
+operational.
 
-The third part of the project will make eligible \texttt{usage.md} documents
-available when users access data using \ac{OPeNDAP}. Part 2 creates and validates
-collection-level \texttt{usage.md} artifacts; Part 3 exposes the guidance and its
-review status through existing \ac{OPeNDAP}/Hyrax responses so clients can retrieve
-it in-band when they request data or metadata. This keeps the solution inside existing
-\acs{OPeNDAP} service patterns and avoids creating another discovery portal.
+% \subsection{Machine-actionable guidance for autonomous data retrieval workflows}
+% \label{section-2.3}
 
-Reviewed \texttt{usage.md} documents will be exposed through this mechanism, and
-unreviewed documents may also be exposed when the agentic workflow and
-deterministic checks identify no questionable claims, unresolved discrepancies,
-unsupported inferences, or validation failures. Documents that contain such
-flags will not be included in the \ac{OPeNDAP} responses and instead flagged for
-expert review.
+% The third part of the project will make eligible \texttt{usage.md} documents
+% available when users access data using \ac{OPeNDAP}. Part 2 creates and validates
+% collection-level \texttt{usage.md} artifacts; Part 3 exposes the guidance and its
+% review status through existing \ac{OPeNDAP}/Hyrax responses so clients can retrieve
+% it in-band when they request data or metadata. This keeps the solution inside existing
+% \acs{OPeNDAP} service patterns and avoids creating another discovery portal.
 
-Nevertheless, every \texttt{usage.md} artifact, whether exposed or withheld, will
-retain provenance, confidence, last-refresh information, and an explicit review
-status. Exposed documents will be labeled as {\em reviewed} or {\em unreviewed with no
-issues flagged}; documents withheld for review will be labeled as
-review required. Existing \acs{OPeNDAP} clients will continue to
-work without change, while agent-aware clients will be able to locate and use the
-guidance.
+% Reviewed \texttt{usage.md} documents will be exposed through this mechanism, and
+% unreviewed documents may also be exposed when the agentic workflow and
+% deterministic checks identify no questionable claims, unresolved discrepancies,
+% unsupported inferences, or validation failures. Documents that contain such
+% flags will not be included in the \ac{OPeNDAP} responses and instead flagged for
+% expert review.
+
+% Nevertheless, every \texttt{usage.md} artifact, whether exposed or withheld, will
+% retain provenance, confidence, last-refresh information, and an explicit review
+% status. Exposed documents will be labeled as {\em reviewed} or {\em unreviewed with no
+% issues flagged}; documents withheld for review will be labeled as
+% review required. Existing \acs{OPeNDAP} clients will continue to
+% work without change, while agent-aware clients will be able to locate and use the
+% guidance.
 
 \section{Deliverables}
 At the end of the project, three new concrete outputs:
@@ -290,6 +304,11 @@ and reach expected \ac{DAP4} service endpoints. If production deployment
 approval is outside the project's control during the award period, we will
 deliver the working prototype and a documented \ac{EDC} integration path.
 
+\item \textbf{A collection of usage.md documents.} We will deliver
+a set of \texttt{usage.md} documents for selected collections in a separate S3
+in the \ac{EDC} bucket managed by \ac{OPeNDAP}. The visibility of these
+documents will be controlled by \ac{OPeNDAP} based on guidance by NASA \ac{ESDS}.
+
 \item \textbf{An open-source metadata-introspection repository.} We will deliver
 software that crawls selected collections, queries \ac{CMR}, inspects
 \acs{OPeNDAP}/Hyrax responses, samples representative granules, and drafts
@@ -297,14 +316,14 @@ evidence-linked collection guidance. The public repository will include source
 code, schemas, prompts or workflow configuration, validation scripts, regression
 tests, developer documentation, and reproducibility notes.
 
-\item \textbf{Reviewed guidance, documentation, and demonstration materials.}
-For collections selected with our \ac{DAAC} collaborator, we will deliver
-reviewed \texttt{usage.md} files covering, as appropriate, identifiers,
-variables, units, and other metadata elements described in
-Section~\ref{section-2.2}. Approved guidance will be exposed through prototype
-\ac{OPeNDAP}Hyrax responses, accompanied by user documentation, sample workflows,
-validation results, a final report, and a presentation/demo.
-\end{enumerate}
+% \item \textbf{Reviewed guidance, documentation, and demonstration materials.}
+% For collections selected with our \ac{DAAC} collaborator, we will deliver
+% reviewed \texttt{usage.md} files covering, as appropriate, identifiers,
+% variables, units, and other metadata elements described in
+% Section~\ref{section-2.2}. Approved guidance will be exposed through prototype
+% \ac{OPeNDAP}Hyrax responses, accompanied by user documentation, sample workflows,
+% validation results, a final report, and a presentation/demo.
+% \end{enumerate}
 
 \textbf{Note}: In the deliverables above we note that the deliverables will
 cover {\em selected} and/or {\em representative} collections and granules. This
@@ -320,7 +339,6 @@ be measured by fraction of the collections and granules that can be accessed.
 
 For Part 2, we will validate the reachability of the key endpoints (i.e.,
 \ac{CMR}, \acs{OPeNDAP}/Hyrax, and \ac{DMR++} documents) by the \ac{AI} agents.
-
 In addition, we will validate
 the agentic metadata-generation workflow by
 comparing the generated markdown documents against authoritative sources,
@@ -330,11 +348,11 @@ evidence-linked metadata summaries, correctly flags uncertainty or disagreement,
 and avoids asserting facts that are not supported by the data or upstream
 metadata. The team has three expert validators that can review the generated documents.
 
-For Part 3, we will validate operational usefulness by testing whether an
-autonomous client can use the embedded guidance (the content of the
-\texttt{usage.md} documents embedded in the response from the \ac{OPeNDAP}/Hyrax
-service) to make correct data access and
-subsetting requests.
+% For Part 3, we will validate operational usefulness by testing whether an
+% autonomous client can use the embedded guidance (the content of the
+% \texttt{usage.md} documents embedded in the response from the \ac{OPeNDAP}/Hyrax
+% service) to make correct data access and
+% subsetting requests.
 
 Validation will also include presence of open-science products that are part of
 our public GitHub repository. These include scripts, test cases, generated
@@ -344,6 +362,9 @@ public and by domain experts. We will follow NASA policy/guidance on how
 publicly available these documents should be.
 
 \section{Timeline}
+This project is designed to be completed within 6 months, with two main parts.
+The work will start on August 3, 2026 and stop on January 29, 2027, in alignment
+with the EED3 contract funding period.
 
 \subsection*{Part 1: AI-discoverable and crawlable service interfaces} 
 \begin{description}
@@ -359,23 +380,21 @@ prototype).
     \item [Month 2] Design the agent workflow, evidence schema, and `usage.md` schema.
     \item [Month 3] Implement initial \ac{CMR}, \acs{OPeNDAP}/Hyrax, \ac{PyDAP}, and \ac{DMR++} tool calls.
     \item [Month 4] Generate the first `usage.md` artifacts for representative
-    collections. Run expert review and revise validators based on the review. 
+    collections. 
+    \item [Month 5] Run expert review and revise validators based on the review. 
 \end{description}
    
 Decision point: Confirm that the generated metadata documents are accurate and
 useful, and that the review process is effective.
 
-
-\subsection*{Part 3: Machine-actionable guidance for autonomous data retrieval workflows} 
+\subsection*{Conclusion} 
 \begin{description}
-    \item [Month 5] Prototype \ac{DAP4} embedding guidance (i.e., the
-    information in the \texttt{usage.md} documents) in Hyrax responses.
-    \item [Month 6] Validate autonomous retrieval workflows and the operational
-    review path. 
+   
+    \item [Month 6] Package the open-source artifacts, final report, and presentation/demo, and
+present the working prototype as the final deliverable. 
+ 
 \end{description}
 
-Package the open-source artifacts, final report, and presentation/demo, and
-present the working prototype as the final deliverable. 
 
 \section{Team}
 
@@ -415,7 +434,8 @@ members, effort, and contributions.
 \textbf{Indirect costs} There are no indirect costs added to the
 budget since payment is through the existing \ac{ESDIS} contract
 (EED3\footnote{NASA Earth Observing System Data and Information System Evolution and
-Development-3} for \acs{OPeNDAP}).\\
+Development-3} for \acs{OPeNDAP}). Ed Armstrong's cost does include indirect
+costs. See Appendix~\ref{app-jpl-budget} for details.\\
 \textbf{Hardware procurement} No hardware procurement is requested; existing
 infrastructure will be utilized.\\
 \textbf{Travel} Travel is excluded from the budget.\\
