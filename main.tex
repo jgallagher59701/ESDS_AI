@@ -179,7 +179,7 @@ first makes those collections crawlable by generic \ac{AI} tools, then produces
 validated collection-level \texttt{usage.md} metadata documents. We originally
 intended to make these documents seamlessly available through the existing
 \ac{OPeNDAP} service responses, but given time constraints of the project's
-funding,\footnote{EED3 contract funding ends on 29 Jan 2027.} we will leave that
+funding,\footnote{EED3 contract funding ends on 29 January 2027.} we will leave that
 integration as part of moving this work into operations. The generated
 \texttt{usage.md} documents will be available to external users through a
 separate S3 bucket.
@@ -247,7 +247,7 @@ Safety and security are important concerns for this system and to guard against
 common security threats, the system will use a tool-based architecture with 
 strict input/output schemas, and manual tool invocation using, e.g., LangChain.
 This will provide a way to ensure that Web APIs surfaced by NASA systems (e.g.,
-\ac{CMR}) only receive sanitized inputs.
+\ac{CMR}) only receive sanitized inputs~\cite{liu2023prompt}\cite{zhan-etal-2024-injecagent}.
 
 This part of the project also adds `staleness' controls. Each \texttt{usage.md} document will include
 versioning, provenance, review status, and timestamps. While out of scope for
@@ -323,7 +323,8 @@ tests, developer documentation, and reproducibility notes.
 % Section~\ref{section-2.2}. Approved guidance will be exposed through prototype
 % \ac{OPeNDAP}Hyrax responses, accompanied by user documentation, sample workflows,
 % validation results, a final report, and a presentation/demo.
-% \end{enumerate}
+
+\end{enumerate}
 
 \textbf{Note}: In the deliverables above we note that the deliverables will
 cover {\em selected} and/or {\em representative} collections and granules. This
