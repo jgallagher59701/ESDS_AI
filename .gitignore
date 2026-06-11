@@ -12,6 +12,7 @@ __pycache__/
 *.blg
 *.out
 *.pdf
+*.toc
 
 # C extensions
 *.so
