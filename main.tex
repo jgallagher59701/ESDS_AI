@@ -209,7 +209,7 @@ our \ac{DAAC} collaborator.
 
 \begin{figure}
     \centering
-    \includegraphics[width=.75\linewidth]{Figure3.png}
+    \includegraphics[width=.75\linewidth]{Figure1.png}
     \caption{Deployment architecture for the agentic system. In part 2 of the
     project, the crawler/agent will run in AWS, The
     agent will query CMR and \ac{OPeNDAP}/Hyrax and store the \texttt{usage.md}
@@ -382,10 +382,12 @@ present the working prototype as the final deliverable.
 The project team combines \acs{OPeNDAP} engineering, NASA \ac{PODAAC}
 operational knowledge, and physical-oceanography domain expertise. {\em James
 Gallagher} will lead the project and contribute agentic \ac{AI} development and
-software engineering. An {\em \ac{OPeNDAP} team member} will contribute agentic \acs{AI}
-development and software engineering. {\em Miguel \`{A}ngel Jim\`{e}nez} will
+software engineering. An {\em Dan Holloway} will contribute agentic \acs{AI}
+development and software engineering. Both Holloway and Gallagher have prior
+experience building \ac{AI} systems. {\em Miguel \`{A}ngel Jim\`{e}nez} will
 collaborate on agentic \acs{AI} development, domain review, and testing as an
-\acs{OPeNDAP}-funded contributor.
+\acs{OPeNDAP}-funded contributor. Miguel has a background in machine learning
+and physical oceanography.
 
 The \ac{PODAAC}/\ac{ESDIS} connection is provided by {\em Ed Armstrong} at NASA
 \ac{JPL} \acs{PODAAC}. Ed will support domain validation and testing, help select
@@ -394,10 +396,13 @@ whether the prototype fits practical \ac{DAAC} review workflows. This gives the
 work a direct validation path against NASA \acs{ESDIS} operational needs, rather
 than only an \acs{OPeNDAP}-side software demonstration.
 
-{\em Peter Cornillon} will contribute unfunded domain validation and testing as a
-collaborator at \ac{OPeNDAP} and the University of Rhode Island. Appendix~\ref{app-team} provides
-Table~\ref{tab-team}, which summarizes the team members, effort, and
-contributions.
+{\em Peter Cornillon} is the originator of the work described in the
+\texttt{grep-dap} project (Section~\ref{section-1.1}) and will provide
+consultation as needed, as well as serving as a Domain expert in Physical
+Oceanography where he has published extensively.
+
+Appendix~\ref{app-team} provides Table~\ref{tab-team}, which summarizes the team
+members, effort, and contributions.
 
 
 \section{Budget Summary}
@@ -421,18 +426,16 @@ cloud compute for testing.\\
 \textbf{Personnel} Personnel costs are based on the estimated hours and hourly
 rates for the project team members, as detailed in the budget table above. The
 total personnel cost is \$173,177. {\em James Gallagher} will lead the project
-and provide guidance on the Hyrax/\acs{OPeNDAP} architecture, Virtual Directory interface, agentic AI development
-and software engineering. An {\em \ac{OPeNDAP} team member} will contribute to agentic AI
-development and software engineering. {\em Ed Armstrong} will provide
-\ac{DAAC}/domain validation, \ac{PODAAC} operational feedback, representative
-collection selection and testing support. {\em
-Miguel \`{A}ngel Jim\`{e}nez} will be funded by \ac{OPeNDAP} to collaborate with
-an {\em \ac{OPeNDAP} team member} 
-on agentic \ac{AI} development and use of \ac{PyDAP} as part of his role in \ac{OPeNDAP}
-as the Scientific Community Director. {\em Peter Cornillon} is the originator of the
-work described in the \texttt{grep-dap} project (Section~\ref{section-1.1}) and will provide
-consultation as needed, as well as serving as a Domain expert in Physical Oceanography
-where he has published extensively.
+and provide guidance on the Hyrax/\acs{OPeNDAP} architecture, Virtual Directory
+interface, agentic AI development and software engineering. {\em Dan Holloway}
+will contribute to agentic AI development and software engineering. {\em Ed
+Armstrong} will provide \ac{DAAC}/domain validation, \ac{PODAAC} operational
+feedback, representative collection selection and testing support. {\em Miguel
+\`{A}ngel Jim\`{e}nez} will be funded by \ac{OPeNDAP} to collaborate with an
+{\em Dan Holloway} on agentic \ac{AI} development and use of \ac{PyDAP} as part
+of his role in \ac{OPeNDAP} as the Scientific Community Director. {\em Peter
+Cornillon} will contribute unfunded domain validation and testing as a
+collaborator at \ac{OPeNDAP} and the University of Rhode Island. 
 
 \pagebreak
 
@@ -452,13 +455,13 @@ Name & Effort & Role / Contribution \\
 \hline
 James Gallagher & 2 months & Project lead; agentic \ac{AI} development; software engineering \\
 \hline
-\ac{OPeNDAP} team member & 2 months & Agentic \ac{AI} development; software engineering \\
+Dan Holloway & 2 months & Agentic \ac{AI} development; software engineering \\
 \hline
 Ed Armstrong & 1 month & Domain expert and testing; key collaborator at \ac{PODAAC} \\
 \hline
 Miguel \`{A}ngel Jim\`{e}nez & 2 months\footnote{Funded by \ac{OPeNDAP}} & Agentic \ac{AI} development, domain expert and testing; collaborator at \acs{OPeNDAP} \\
 \hline
-Peter Cornillon & unfunded & Domain expert and testing; collaborator at
+Peter Cornillon & Unfunded & Domain expert and testing; collaborator at
 \ac{OPeNDAP} and the University of Rhode Island \\
 \hline
 \end{tabular}
@@ -479,7 +482,7 @@ Who & Hourly rate & Months & Cost \\
 \hline
 James Gallagher & \$220.15 & 2 & \$73,530 \\
 \hline
-\ac{OPeNDAP} team member & \$199.07 & 2 & \$66,489 FIXME!! \\
+Dan Holloway & \$199.07 & 2 & \$66,489 \\
 \hline
 Ed Armstrong & See budget in Appendix~\ref{app-jpl-budget} & 1 & \$33,158 \\
 \hline
