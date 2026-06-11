@@ -34,7 +34,7 @@
 \title{AI-assisted metadata curation and agent-ready OPeNDAP access to data}
 
 \author[1]{James Gallagher}
-\author[1]{Miguel \`{A}ngel Jim\`{e}nez}
+\author[1]{Miguel Angel Jim\'{e}nez-Urias}
 \author[1]{Peter Cornillon}
 \author[3]{Edward Armstrong}
 
@@ -82,7 +82,7 @@ The \ac{CMR} provides authoritative collection and granule metadata; Hyrax and
 the \acs{OPeNDAP}\footnote{\ac{OPeNDAP} is the name of the 501(c)3 that
 maintains the \acl{DAP} (DAP) but the name \acs{OPeNDAP} is often used to refer to that set
 of protocols.} \ac{DAP} provide remote, subset-oriented access to the data
-themselves; \ac{DMR++} inventories expose the cloud retrieval structure; and
+themselves; \ac{DMR++} inventories expose the cloud retrieval structure \citep{gallagher_2024_14025927}; and
 \acp{DAAC} perform expert review and operational curation. What remains
 difficult is applying these capabilities consistently across large and growing
 archives, especially when the information needed to judge a collection is
@@ -95,7 +95,7 @@ heterogeneous collections. An \ac{AI} agent can traverse collection structure, i
 \acs{OPeNDAP}, compare findings across granules, draft machine-actionable
 guidance, and flag discrepancies for expert review. The factual claims in that
 workflow remain grounded in deterministic service responses and programmatic
-checks of units, coordinates, \ldots, and
+checks of metadata attributes at the variable level (\textit{e.g.} units, coordinates) and
 cross-granule consistency.
 
 The work described in Section~\ref{section-2} advances the \ac{ESDS} \ac{AI} Strategy
@@ -245,7 +245,7 @@ with this system modify any \ac{EDC} artifact (e.g., \ac{CMR} record); only the
 
 Safety and security are important concerns for this system and to guard against
 common security threats, the system will use a tool-based architecture with 
-strict input/output schemas, and manual tool invocation using, e.g., LangChain.
+strict input/output schemas, and manual tool invocation~\cite{maloyan2026prompt} using, e.g., LangChain.
 This will provide a way to ensure that Web APIs surfaced by NASA systems (e.g.,
 \ac{CMR}) only receive sanitized inputs~\cite{liu2023prompt}\cite{zhan-etal-2024-injecagent}.
 
@@ -396,21 +396,20 @@ present the working prototype as the final deliverable.
  
 \end{description}
 
-
 \section{Team}
 
 The project team combines \acs{OPeNDAP} engineering, NASA \ac{PODAAC}
 operational knowledge, and physical-oceanography domain expertise. {\em James
 Gallagher} will lead the project and contribute agentic \ac{AI} development and
-software engineering. An {\em Dan Holloway} will contribute agentic \acs{AI}
+software engineering. {\em Dan Holloway} will contribute agentic \acs{AI}
 development and software engineering. Both Holloway and Gallagher have prior
-experience building \ac{AI} systems. {\em Miguel \`{A}ngel Jim\`{e}nez} will
+experience building \ac{AI} systems. {\em Miguel Angel Jim\'{e}nez-Urias} will
 collaborate on agentic \acs{AI} development, domain review, and testing as an
 \acs{OPeNDAP}-funded contributor. Miguel has a background in machine learning
 and physical oceanography.
 
-The \ac{PODAAC}/\ac{ESDIS} connection is provided by {\em Ed Armstrong} at NASA
-\ac{JPL} \acs{PODAAC}. Ed will support domain validation and testing, help select
+{\em Ed Armstrong} at NASA
+\ac{JPL} \acs{PODAAC} will support domain validation and testing, help select
 representative collections, and provide \acs{PODAAC} operational feedback on
 whether the prototype fits practical \ac{DAAC} review workflows. This gives the
 work a direct validation path against NASA \acs{ESDIS} operational needs, rather
@@ -418,8 +417,8 @@ than only an \acs{OPeNDAP}-side software demonstration.
 
 {\em Peter Cornillon} is the originator of the work described in the
 \texttt{grep-dap} project (Section~\ref{section-1.1}) and will provide
-consultation as needed, as well as serving as a Domain expert in Physical
-Oceanography where he has published extensively.
+consultation as needed, as well as serving as a domain expert in Physical
+Oceanography, where he has published extensively.
 
 Appendix~\ref{app-team} provides Table~\ref{tab-team}, which summarizes the team
 members, effort, and contributions.
@@ -432,10 +431,10 @@ members, effort, and contributions.
 
 \noindent 
 \textbf{Note} See Appendix~\ref{app-budget} for Table~\ref{tab-budget} which summarizes the budget information.\\
-\textbf{Indirect costs} There are no indirect costs added to the
-budget since payment is through the existing \ac{ESDIS} contract
-(EED3\footnote{NASA Earth Observing System Data and Information System Evolution and
-Development-3} for \acs{OPeNDAP}). Ed Armstrong's cost does include indirect
+\textbf{Indirect costs} For \ac{OPeNDAP}, there are no indirect costs added to the
+budget since payment is through the existing \ac{ESDIS}
+EED3\footnote{NASA Earth Observing System Data and Information System Evolution and
+Development-3} contract. Ed Armstrong's cost does include indirect
 costs. See Appendix~\ref{app-jpl-budget} for details.\\
 \textbf{Hardware procurement} No hardware procurement is requested; existing
 infrastructure will be utilized.\\
@@ -480,7 +479,7 @@ Dan Holloway & 2 months & Agentic \ac{AI} development; software engineering \\
 \hline
 Ed Armstrong & 1 month & Domain expert and testing; key collaborator at \ac{PODAAC} \\
 \hline
-Miguel \`{A}ngel Jim\`{e}nez & 2 months\footnote{Funded by \ac{OPeNDAP}} & Agentic \ac{AI} development, domain expert and testing; collaborator at \acs{OPeNDAP} \\
+Miguel Angel Jim\'{e}nez-Urias & 2 months\footnote{Funded by \ac{OPeNDAP}} & Agentic \ac{AI} development, domain expert and testing; collaborator at \acs{OPeNDAP} \\
 \hline
 Peter Cornillon & Unfunded & Domain expert and testing; collaborator at
 \ac{OPeNDAP} and the University of Rhode Island \\
