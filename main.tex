@@ -36,11 +36,11 @@
 \author[1]{James Gallagher}
 \author[1]{Miguel Angel Jim\'{e}nez-Urias}
 \author[1]{Peter Cornillon}
-\author[3]{Edward Armstrong}
+\author[2]{Edward Armstrong}
 
 \affil[1]{OPeNDAP, Butte, MT}
 % \affil[2]{Uniersity of Rhode Island, Narrgansett, RI}
-\affil[3]{NASA JPL PODAAC, Pasadena, CA}
+\affil[2]{NASA JPL PODAAC, Pasadena, CA}
 
 \date{\today}
 
@@ -206,7 +206,7 @@ project we will work with \ac{ESDIS} to deploy this interface.
 The second part of the project will build and deploy an agentic workflow that
 inspects \acs{OPeNDAP}-enabled \ac{EDC} collections and drafts one
 collection-level \texttt{usage.md} file for each selected collection. We may
-crawl broader coverage when feasible, but the proposal commitment is to
+crawl broader coverage when feasible, but the commitment of the project is to
 generate and validate guidance for a representative set selected with
 our \ac{DAAC} collaborator.
 
@@ -235,7 +235,7 @@ across granules, and draft collection \texttt{usage.md} documents. The resulting
 identifiers, variables, units, coordinates, fill values, valid ranges, temporal
 and spatial bounds, chunking and access guidance, known access issues, evidence
 links, confidence labels, review status, and last-refresh time.\footnote{For
-some collections, not all of this information may be relevant.}
+some collections, not all of this information will be relevant.}
 
 The agent may propose inferences, but every claim must be labeled as {\em
 stated}, {\em inferred}, {\em uncertain}, or {\em unsupported}. Unsupported
@@ -293,7 +293,7 @@ operational.
 % guidance.
 
 \section{Deliverables}
-At the end of the project, three new concrete outputs:
+During this project, we will produce three new concrete outputs:
 
 \begin{enumerate}
 \item \textbf{A working \ac{AI}-crawlable interface prototype.} We will deliver
@@ -332,11 +332,12 @@ is to ensure the work and the promised deliverables are achievable within the
 project scope. 
 
 \section{Validations and Path to Operations}
+
 Our validation approach follows from the three deliverables. For Part 1, we will
 validate the Virtual Directory Interface by confirming that generic \ac{AI}
 clients can discover and traverse representative \acs{OPeNDAP}-enabled
 collections in \ac{ESDIS} without collection-specific adaptation. Success will
-be measured by fraction of the collections and granules that can be accessed.
+be measured by the fraction of selected collections and granules that can be accessed.
 
 For Part 2, we will validate the reachability of the key endpoints (i.e.,
 \ac{CMR}, \acs{OPeNDAP}/Hyrax, and \ac{DMR++} documents) by the \ac{AI} agents.
@@ -362,15 +363,21 @@ documents themselves will be open-science artifacts that can be reviewed by the
 public and by domain experts. We will follow NASA policy/guidance on how
 publicly available these documents should be.
 
+Deployment to operations is beyond the scope of this project. However, the path
+to operations is to embed the content of the \texttt{usage.md} 
+documents into the standard responses provided by the \ac{OPeNDAP}/Hyrax service. This will enable 
+autonomous clients to use the embedded guidance to make correct data access and
+subsetting requests.
+
 \section{Timeline}
-This project is designed to be completed within 6 months, with two main parts.
-The work will start on August 3, 2026 and stop on January 29, 2027, in alignment
+This project is designed to be completed in 6 months and has two main parts.
+The work will start on August 3, 2026, and end on January 29, 2027, aligned 
 with the EED3 contract funding period.
 
 \subsection*{Part 1: AI-discoverable and crawlable service interfaces} 
 \begin{description}
-    \item [Month 1] Deploy and test the Hyrax Virtual Directory Interface
-    candidate and define target validation collections. 
+    \item [Month 1] Deploy and test the candidate Hyrax virtual directory interface
+ and define target validation collections. 
 \end{description}
 
 Decision point: confirm that the interface is operational (as a working
@@ -400,11 +407,12 @@ present the working prototype as the final deliverable.
 
 The project team combines \acs{OPeNDAP} engineering, NASA \ac{PODAAC}
 operational knowledge, and physical-oceanography domain expertise. {\em James
-Gallagher} will lead the project and contribute agentic \ac{AI} development and
+Gallagher} will lead the project and provide guidance on the Hyrax/\acs{OPeNDAP} architecture, Virtual Directory
+interface, contribute to agentic \ac{AI} development and
 software engineering. {\em Dan Holloway} will contribute agentic \acs{AI}
 development and software engineering. Both Holloway and Gallagher have prior
 experience building \ac{AI} systems. {\em Miguel Angel Jim\'{e}nez-Urias} will
-collaborate on agentic \acs{AI} development, domain review, and testing as an
+collaborate on agentic \acs{AI} development, use of \ac{PyDAP}domain review, and testing as an
 \acs{OPeNDAP}-funded contributor. Miguel has a background in machine learning
 and physical oceanography.
 
@@ -444,15 +452,11 @@ for AI model and inference, estimated at \$10,000 over the project
 duration. This estimate is based on OpenAI model costs, LangChain usage and AWS
 cloud compute for testing.\\
 \textbf{Personnel} Personnel costs are based on the estimated hours and hourly
-rates for the project team members, as detailed in the budget table above. The
-total personnel cost is \$173,177. {\em James Gallagher} will lead the project
-and provide guidance on the Hyrax/\acs{OPeNDAP} architecture, Virtual Directory
-interface, agentic AI development and software engineering. {\em Dan Holloway}
-will contribute to agentic AI development and software engineering. {\em Ed
-Armstrong} will provide \ac{DAAC}/domain validation, \ac{PODAAC} operational
-feedback, representative collection selection and testing support. {\em Miguel
-\`{A}ngel Jim\`{e}nez} will be funded by \ac{OPeNDAP} to collaborate with an
-{\em Dan Holloway} on agentic \ac{AI} development and use of \ac{PyDAP} as part
+rates for the project team members, as detailed in the budget table in Appendix~\ref{app-budget}. The
+total personnel cost is \$173,177. {\em James Gallagher} and {\em Dan Holloway}
+will be funded by the NASA EED3 contract. {\em Ed
+Armstrong} will be funded by the \ac{PODAAC}.
+{\em Miguel\`{A}ngel Jim\`{e}nez} will be funded by \ac{OPeNDAP} as part
 of his role in \ac{OPeNDAP} as the Scientific Community Director. {\em Peter
 Cornillon} will contribute unfunded domain validation and testing as a
 collaborator at \ac{OPeNDAP} and the University of Rhode Island. 
